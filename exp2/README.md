@@ -59,7 +59,32 @@ proposals only; no refactoring has been implemented.
 
 ## 3. Coding Agent and Custom Skill
 
-Pending TA confirmation.
+The repository-local [`solid-review` Skill](.agents/skills/solid-review/SKILL.md)
+guides Codex through an evidence-based review of all five SOLID principles. It
+requires file, class, and method references; separates definite violations
+from uncertain concerns; proposes minimal remedies; and stops for explicit
+approval before any application refactoring. After approval, it calls for diff
+review and focused verification. Its YAML `name` and `description` identify
+when to use it. A single instruction-only `SKILL.md` is sufficient because this
+review needs no scripts, reference files, or dependencies. This follows the
+[official Skill format](https://learn.chatgpt.com/docs/build-skills).
+
+`skill-creator/scripts/quick_validate.py` reported `Skill is valid!`. A fresh,
+read-only Codex CLI session was explicitly prompted with `Use $solid-review`
+against `01-Without-OOD-Principles/store`. The session started but could not
+connect to the model service, so it produced no analysis and native Skill
+activation was **not verified**. A network-enabled retry was rejected by
+automatic approval review because it could send repository source to an
+external service. No application file was changed. A later Codex session can
+repeat the explicit invocation when that access is approved and available.
+
+For a local, read-only rehearsal, the Skill instructions were read and applied
+to the original project's source. The resulting classifications match Section
+2: SRP (`OrderService.process_order`), OCP (`PaymentProcessor.process`), LSP
+and ISP (`SmsOnlyNotifier`), and DIP (`OrderService.__init__`) have concrete
+violations; the bundle's intended aggregate contract remains uncertain. The
+rehearsal added no new finding or demonstrated improvement over the earlier
+analysis. It is not evidence that Codex loaded the Skill in the CLI session.
 
 ## 4. Refactoring Plan
 
