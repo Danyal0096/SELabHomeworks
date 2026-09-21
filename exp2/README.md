@@ -53,9 +53,9 @@ Assessment of `01-Without-OOD-Principles/` after the cash extension:
 The LSP and ISP notifier findings concern an unused subtype, so they describe a
 real substitution problem in the design rather than a failure observed in the
 current demo. The bundle pricing result is observed, but whether a bundle must
-sum its child orders is not stated explicitly by the code; the proposed bundle
-refactoring therefore depends on that domain decision. These are analysis
-proposals only; no refactoring has been implemented.
+sum its child orders is not stated explicitly by the code. These findings
+describe the BEFORE version; the approved refactoring of the AFTER version is
+recorded in Sections 4–6.
 
 ## 3. Coding Agent and Custom Skill
 
@@ -69,35 +69,58 @@ when to use it. A single instruction-only `SKILL.md` is sufficient because this
 review needs no scripts, reference files, or dependencies. This follows the
 [official Skill format](https://learn.chatgpt.com/docs/build-skills).
 
-`skill-creator/scripts/quick_validate.py` reported `Skill is valid!`. A fresh,
-read-only Codex CLI session was explicitly prompted with `Use $solid-review`
-against `01-Without-OOD-Principles/store`. The session started but could not
-connect to the model service, so it produced no analysis and native Skill
-activation was **not verified**. A network-enabled retry was rejected by
-automatic approval review because it could send repository source to an
-external service. No application file was changed. A later Codex session can
-repeat the explicit invocation when that access is approved and available.
-
-For a local, read-only rehearsal, the Skill instructions were read and applied
-to the original project's source. The resulting classifications match Section
-2: SRP (`OrderService.process_order`), OCP (`PaymentProcessor.process`), LSP
-and ISP (`SmsOnlyNotifier`), and DIP (`OrderService.__init__`) have concrete
-violations; the bundle's intended aggregate contract remains uncertain. The
-rehearsal added no new finding or demonstrated improvement over the earlier
-analysis. It is not evidence that Codex loaded the Skill in the CLI session.
+`skill-creator/scripts/quick_validate.py` reported `Skill is valid!`. An
+earlier read-only Codex CLI attempt could not connect to the model service, so
+that attempt did not verify activation. In a later fresh VS Code Codex session,
+the user explicitly invoked `$solid-review` for
+`01-Without-OOD-Principles/`. Codex discovered the repository-local Skill,
+loaded `SKILL.md` from disk, and produced a read-only review of all five SOLID
+principles with source-code references. This verified native Skill activation
+in the VS Code session. It reproduced the Section 2 findings, including the
+uncertain bundle semantics, without demonstrable improvement in analytical
+quality. The demonstration changed no files.
 
 ## 4. Refactoring Plan
 
-Pending.
+The [approved plan](02-Applied-OOD-Principles/REFACTORING_PLAN.md) targets only
+`02-Applied-OOD-Principles/`. It calls for focused validation, pricing, and
+receipt components; registered payment handlers; separate notification
+capabilities; and constructor-injected dependencies. We reviewed and explicitly
+approved that plan before implementation. The decision was to preserve the
+bundle's $5.00 checkout and defer its business semantics. Cash payment in the
+AFTER version remains a separate experiment step.
 
 ## 5. Refactoring Implementation
 
-Pending.
+The approved changes were implemented only in `02-Applied-OOD-Principles/`:
+
+| Files and affected code | Change | Principles addressed |
+| --- | --- | --- |
+| `store/contracts.py`; `OrderService.__init__` in `store/order_service.py`; `main` in `store/main.py` | Added seven small structural contracts, injected the collaborators into checkout, and assembled concrete instances at the entry point. | DIP, ISP |
+| `store/validation.py` (`OrderValidator.validate`), `store/pricing.py` (`OrderPricing.price`, `PriceBreakdown`), `store/receipt.py` (`ReceiptPrinter.print_receipt`) | Moved validation, total calculation, and receipt printing out of `OrderService.process_order` while retaining their rules and output. | SRP |
+| `store/payment.py` (`PaymentProcessor.process` and three handlers) | Replaced the payment branch chain with a handler mapping for credit card, PayPal, and Bitcoin. A later cash handler can be registered without editing existing processing logic. | OCP |
+| `store/notification.py` (`SmsOnlyNotifier`) | Removed inheritance from the full notifier and exposed only its supported SMS operation. Checkout requests email and SMS through separate contracts. | LSP, ISP |
+
+`store/models.py` and `store/storage.py` were not changed. The bundle validation
+exception was moved intact; no bundle pricing rule was changed. No cash handler
+or cash demo order was added to the AFTER version.
 
 ## 6. Before-and-After Comparison
 
-Pending.
+Running `python -B -m store.main` from the AFTER directory produced stdout
+identical to the pre-refactoring baseline, including the laptop's $819.99 total
+and the bundle's $0.00 subtotal and $5.00 total. Focused temporary checks
+passed for the three original payment receipt strings, unknown payment methods
+(including cash), invalid orders, `notify=False`, paid status and persistence,
+pricing cases for VIP, bulk, coupon, and no discount, and registration of an
+additional payment handler. Failed checkouts remained pending and unsaved.
+SHA-256 hashes of every BEFORE source file were unchanged. No comprehensive
+test suite or external dependency was added.
 
 ## 7. Coding Agent Evaluation
 
-Pending.
+The native VS Code Skill demonstration confirmed discovery and loading of the
+repository-local instructions. Its SOLID review agreed with the earlier manual
+analysis and did not demonstrate an improvement in analytical quality. The
+approved plan supplied a clear boundary for the later implementation and kept
+the uncertain bundle business rule unchanged.
