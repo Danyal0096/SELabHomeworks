@@ -38,6 +38,13 @@ def main() -> None:
     print("\n>>> Checkout a bundle of two orders")
     service.process_order(bundle)
 
+    cash_order = Order(
+        id=104, customer=books.customer, payment_method="cash",
+        items=[OrderItem(5, "Notebook", 12.00, 1)],
+    )
+    print("\n>>> Checkout a cash order")
+    service.process_order(cash_order)
+
 
 if __name__ == "__main__":
     main()
