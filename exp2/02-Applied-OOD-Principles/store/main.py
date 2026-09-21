@@ -1,5 +1,12 @@
+from store.cash_payment import CashPayment
 from store.models import BundleOrder, Customer, Order, OrderItem
+from store.notification import NotificationService
 from store.order_service import OrderService
+from store.payment import BitcoinPayment, CreditCardPayment, PaymentProcessor, PayPalPayment
+from store.pricing import DiscountCalculator, OrderPricing
+from store.receipt import ReceiptPrinter
+from store.storage import MySqlDatabase
+from store.validation import OrderValidator
 
 
 def build_demo_orders():
@@ -29,7 +36,21 @@ def build_demo_orders():
 
 
 def main() -> None:
-    service = OrderService()
+    notification = NotificationService()
+    service = OrderService(
+        validator=OrderValidator(),
+        pricing=OrderPricing(DiscountCalculator()),
+        payment=PaymentProcessor({
+            "credit_card": CreditCardPayment(),
+            "paypal": PayPalPayment(),
+            "bitcoin": BitcoinPayment(),
+            "cash": CashPayment(),
+        }),
+        database=MySqlDatabase(),
+        email_sender=notification,
+        sms_sender=notification,
+        receipt_writer=ReceiptPrinter(),
+    )
     laptop, books, bundle = build_demo_orders()
 
     print(">>> Checkout a simple order")
@@ -37,6 +58,13 @@ def main() -> None:
 
     print("\n>>> Checkout a bundle of two orders")
     service.process_order(bundle)
+
+    cash_order = Order(
+        id=104, customer=books.customer, payment_method="cash",
+        items=[OrderItem(5, "Notebook", 12.00, 1)],
+    )
+    print("\n>>> Checkout a cash order")
+    service.process_order(cash_order)
 
 
 if __name__ == "__main__":
