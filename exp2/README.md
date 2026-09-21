@@ -87,8 +87,8 @@ The [approved plan](02-Applied-OOD-Principles/REFACTORING_PLAN.md) targets only
 receipt components; registered payment handlers; separate notification
 capabilities; and constructor-injected dependencies. We reviewed and explicitly
 approved that plan before implementation. The decision was to preserve the
-bundle's $5.00 checkout and defer its business semantics. Cash payment in the
-AFTER version remains a separate experiment step.
+bundle's $5.00 checkout and defer its business semantics. Cash payment was
+reserved for the separate extension step described in Section 6.
 
 ## 5. Refactoring Implementation
 
@@ -102,8 +102,9 @@ The approved changes were implemented only in `02-Applied-OOD-Principles/`:
 | `store/notification.py` (`SmsOnlyNotifier`) | Removed inheritance from the full notifier and exposed only its supported SMS operation. Checkout requests email and SMS through separate contracts. | LSP, ISP |
 
 `store/models.py` and `store/storage.py` were not changed. The bundle validation
-exception was moved intact; no bundle pricing rule was changed. No cash handler
-or cash demo order was added to the AFTER version.
+exception was moved intact; no bundle pricing rule was changed. At this
+refactoring milestone, no cash handler or cash demo order was added to the
+AFTER version.
 
 ## 6. Before-and-After Comparison
 
@@ -116,6 +117,55 @@ pricing cases for VIP, bulk, coupon, and no discount, and registration of an
 additional payment handler. Failed checkouts remained pending and unsaved.
 SHA-256 hashes of every BEFORE source file were unchanged. No comprehensive
 test suite or external dependency was added.
+
+### Cash feature extension in the AFTER version
+
+The cash feature was added after the refactoring commit
+`bc6df530df220f3d2c04f9dc0c416d15a6a68c4e`. Its application changes were:
+
+| File | Class or method | Cash change | Why necessary |
+| --- | --- | --- | --- |
+| `02-Applied-OOD-Principles/store/cash_payment.py` (added) | `CashPayment.process` (added) | Prints `[payment] Accepting cash {amount:.2f}` and returns `paid_by_cash:{amount:.2f}`. | Supplies cash behavior through the existing payment contract without editing another handler or `PaymentProcessor.process`. |
+| `02-Applied-OOD-Principles/store/main.py` (modified) | `main` | Imports and registers `CashPayment` under `"cash"`, then checks out order 104 with one $12.00 notebook using the same customer and output as BEFORE. | Makes cash selectable through the existing mapping and demonstrates the feature. |
+
+No conditional branch was added to the AFTER payment processor. No external
+dependency was added. `store/payment.py`, its three existing handlers, and
+`store/order_service.py` were unchanged by this cash feature.
+
+### Feature-only comparison
+
+The local original snapshot `8871039` is the BEFORE pre-cash reference, and
+commit `a054e81` contains its cash extension. The upstream source hash listed
+above is not present in the local Git object database, so the comparison uses
+that committed local snapshot. The AFTER pre-cash reference is the completed
+SOLID refactoring commit `bc6df53`; the earlier refactoring changes are
+excluded from the AFTER cash-feature column.
+
+| Change dimension | BEFORE: `8871039` to `a054e81` | AFTER: `bc6df53` to cash extension |
+| --- | --- | --- |
+| Application files | Modified `store/payment.py` and `store/main.py`; added none. | Added `store/cash_payment.py`; modified `store/main.py`. |
+| Classes and methods | Modified `PaymentProcessor.process` to recognize cash; modified `main` to add the notebook order. | Added `CashPayment.process`; modified `main` for registration and the same notebook order. `PaymentProcessor.process` and existing handlers were untouched. |
+| Conditional branches | Added one `elif method == "cash"` branch to the existing dispatcher. | Added no branch; added a `"cash": CashPayment()` mapping entry. |
+| Dependencies and registration | The processor's existing string-based dispatch gained direct knowledge of the cash method; no registration point existed. | `main` imports the cash handler and registers it through the existing `PaymentPort`-compatible mapping; no external package was needed. |
+| Reason for change | The dispatcher had to be edited to accept cash, and the demo needed a cash order. | A new handler supplied the behavior, registration made it selectable, and the demo needed the same cash order. |
+
+The observed changes show that the AFTER design accepts a new payment method
+without editing existing payment-processing logic, while BEFORE required a new
+branch in the shared dispatcher. This confines the AFTER payment behavior to a
+new handler and one registration entry. Both versions still needed a demo
+change. No implementation-time, defect-rate, or complexity improvement was
+measured.
+
+### Final verification
+
+Running `python -B -m store.main` in each application produced identical stdout.
+Both print `[payment] Accepting cash 17.00`, include
+`paid_by_cash:17.00` in notifications and receipts, and show a $12.00 notebook
+subtotal, $5.00 shipping, and $17.00 total. The laptop remains $819.99 and the
+bundle remains $5.00 in both versions. Focused AFTER checks passed for credit
+card, PayPal, Bitcoin, and cash receipt strings, and confirmed that the cash
+order became `paid` and was saved. SHA-256 hashes of the BEFORE source files
+remained unchanged during this extension.
 
 ## 7. Coding Agent Evaluation
 

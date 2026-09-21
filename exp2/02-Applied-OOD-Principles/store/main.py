@@ -1,3 +1,4 @@
+from store.cash_payment import CashPayment
 from store.models import BundleOrder, Customer, Order, OrderItem
 from store.notification import NotificationService
 from store.order_service import OrderService
@@ -43,6 +44,7 @@ def main() -> None:
             "credit_card": CreditCardPayment(),
             "paypal": PayPalPayment(),
             "bitcoin": BitcoinPayment(),
+            "cash": CashPayment(),
         }),
         database=MySqlDatabase(),
         email_sender=notification,
@@ -56,6 +58,13 @@ def main() -> None:
 
     print("\n>>> Checkout a bundle of two orders")
     service.process_order(bundle)
+
+    cash_order = Order(
+        id=104, customer=books.customer, payment_method="cash",
+        items=[OrderItem(5, "Notebook", 12.00, 1)],
+    )
+    print("\n>>> Checkout a cash order")
+    service.process_order(cash_order)
 
 
 if __name__ == "__main__":
