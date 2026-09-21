@@ -7,7 +7,6 @@
 - **Repository:** https://github.com/Danyal0096/SELabHomeworks
 - **Live website:** https://danyal0096.github.io/SELabHomeworks/
 - **Theoretical questions (all seven):** [Questions and answers](exp1-theoretical-answers.md)
-- **Demonstration video:** Recorded; delivered separately under the course submission instructions.
 
 ## Implementation
 
@@ -73,8 +72,6 @@ The [deployment workflow](../.github/workflows/deploy.yml) runs on pushes to `ma
 
 **Initial deployment evidence:** [Successful workflow run](https://github.com/Danyal0096/SELabHomeworks/actions/runs/35565273805). The deployed website was also opened in a browser to verify that the page and styles load.
 
-## Written answers and demonstration
+## Written answers
 
 The answers to the handout's seven theoretical questions are in [exp1-theoretical-answers.md](exp1-theoretical-answers.md).
-
-The demonstration video is recorded and is handled as a separate submission item; it is not included in the website's deployment artifact.

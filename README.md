@@ -6,7 +6,7 @@ This repository contains the source code and documentation for the Software Engi
 
 | No. | Experiment | Focus | Status |
 | --- | --- | --- | --- |
-| 01 | [Git and Continuous Deployment](exp1/README.md) | Branches, pull requests, merge conflicts, GitHub Actions, and GitHub Pages | Website and documentation complete; demonstration video recorded separately |
+| 01 | [Git and Continuous Deployment](exp1/README.md) | Branches, pull requests, merge conflicts, GitHub Actions, and GitHub Pages | Website and documentation complete |
 | 02 | Object-Oriented Design | SOLID principles, refactoring, and AI-assisted development | Not started |
 | 03 | Test-Driven Development | Unit tests, Red–Green–Refactor, coverage, and mutation testing | Not started |
 | 04 | Behavior-Driven Development | Feature files, scenarios, and step definitions | Not started |
@@ -18,7 +18,6 @@ This repository contains the source code and documentation for the Software Engi
 - **Implementation and development record:** [Experiment 1 README](exp1/README.md)
 - **Seven theoretical answers:** [Theoretical questions and answers](exp1/exp1-theoretical-answers.md)
 - **Deployment workflow:** [GitHub Actions configuration](.github/workflows/deploy.yml)
-- **Demonstration video:** Recorded; delivered separately according to the course's submission instructions.
 
 ## Repository structure
 
@@ -46,4 +45,4 @@ Experiment 1 uses Git, GitHub, HTML, CSS, JavaScript, GitHub Actions, and GitHub
 
 ## Submission notes
 
-Experiment 1's website, source code, and written answers are linked above. Its demonstration video is a separate submission item. Experiment 3's handout specifies a public Hamgit repository; its submission link will be added when that experiment is completed.
+Experiment 1's website, source code, and written answers are linked above. Experiment 3's handout specifies a public Hamgit repository; its submission link will be added when that experiment is completed.
