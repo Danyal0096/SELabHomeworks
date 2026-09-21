@@ -66,8 +66,7 @@ from uncertain concerns; proposes minimal remedies; and stops for explicit
 approval before any application refactoring. After approval, it calls for diff
 review and focused verification. Its YAML `name` and `description` identify
 when to use it. A single instruction-only `SKILL.md` is sufficient because this
-review needs no scripts, reference files, or dependencies. This follows the
-[official Skill format](https://learn.chatgpt.com/docs/build-skills).
+review needs no scripts, reference files, or dependencies.
 
 `skill-creator/scripts/quick_validate.py` reported `Skill is valid!`. An
 earlier read-only Codex CLI attempt could not connect to the model service, so
@@ -98,7 +97,7 @@ The approved changes were implemented only in `02-Applied-OOD-Principles/`:
 | --- | --- | --- |
 | `store/contracts.py`; `OrderService.__init__` in `store/order_service.py`; `main` in `store/main.py` | Added seven small structural contracts, injected the collaborators into checkout, and assembled concrete instances at the entry point. | DIP, ISP |
 | `store/validation.py` (`OrderValidator.validate`), `store/pricing.py` (`OrderPricing.price`, `PriceBreakdown`), `store/receipt.py` (`ReceiptPrinter.print_receipt`) | Moved validation, total calculation, and receipt printing out of `OrderService.process_order` while retaining their rules and output. | SRP |
-| `store/payment.py` (`PaymentProcessor.process` and three handlers) | Replaced the payment branch chain with a handler mapping for credit card, PayPal, and Bitcoin. A later cash handler can be registered without editing existing processing logic. | OCP |
+| `store/payment.py` (`PaymentProcessor.process` and three handlers) | Replaced the payment branch chain with a handler mapping for credit card, PayPal, and Bitcoin. This allowed the later cash handler to be registered without editing existing processing logic. | OCP |
 | `store/notification.py` (`SmsOnlyNotifier`) | Removed inheritance from the full notifier and exposed only its supported SMS operation. Checkout requests email and SMS through separate contracts. | LSP, ISP |
 
 `store/models.py` and `store/storage.py` were not changed. The bundle validation
@@ -108,13 +107,14 @@ AFTER version.
 
 ## 6. Before-and-After Comparison
 
-Running `python -B -m store.main` from the AFTER directory produced stdout
-identical to the pre-refactoring baseline, including the laptop's $819.99 total
-and the bundle's $0.00 subtotal and $5.00 total. Focused temporary checks
-passed for the three original payment receipt strings, unknown payment methods
-(including cash), invalid orders, `notify=False`, paid status and persistence,
-pricing cases for VIP, bulk, coupon, and no discount, and registration of an
-additional payment handler. Failed checkouts remained pending and unsaved.
+At the refactoring commit `bc6df53`, running `python -B -m store.main` from the
+AFTER directory produced stdout identical to the pre-refactoring baseline,
+including the laptop's $819.99 total and the bundle's $0.00 subtotal and $5.00
+total. Focused temporary checks passed for the three original payment receipt
+strings, unknown payment methods (including cash at that stage), invalid
+orders, `notify=False`, paid status and persistence, pricing cases for VIP,
+bulk, coupon, and no discount, and registration of an additional payment
+handler. Failed checkouts remained pending and unsaved.
 SHA-256 hashes of every BEFORE source file were unchanged. No comprehensive
 test suite or external dependency was added.
 
@@ -169,8 +169,48 @@ remained unchanged during this extension.
 
 ## 7. Coding Agent Evaluation
 
-The native VS Code Skill demonstration confirmed discovery and loading of the
-repository-local instructions. Its SOLID review agreed with the earlier manual
-analysis and did not demonstrate an improvement in analytical quality. The
-approved plan supplied a clear boundary for the later implementation and kept
-the uncertain bundle business rule unchanged.
+1. **Which parts did Codex analyze correctly?** Codex identified the documented
+   SRP, OCP, LSP, ISP, and DIP concerns in the BEFORE application with source
+   references. It treated the notifier's LSP/ISP issue as definite but unused
+   in checkout, and the bundle's pricing contract as uncertain. The later
+   feature diff confirmed its OCP analysis: BEFORE cash required a branch in
+   `PaymentProcessor.process`, while AFTER cash used a new handler and existing
+   registration point.
+
+2. **What required correction or human intervention?** The original BEFORE
+   cash proposal required human review and approval before implementation; the
+   SOLID refactoring plan was likewise reviewed and approved without
+   architectural revision. Those were approval decisions, not corrections to
+   an incorrect design. Human instructions preserved the bundle's $5.00
+   checkout and separated the AFTER cash feature from refactoring. The initial
+   CLI Skill demonstration failed to connect to the model service, so its
+   activation claim had to await the successful VS Code run. The README's
+   earlier unverified-activation and pending-work statements were then updated.
+   Git's ownership restriction was an environment issue resolved with
+   command-scoped `safe.directory` at the verified repository root, without
+   changing global configuration. No incorrect SOLID conclusion or required
+   architectural revision is documented.
+
+3. **Which prompts mattered most?** The key requests were to propose and,
+   after review, implement cash payment in BEFORE; explicitly use the local
+   `$solid-review` Skill for a read-only analysis; prepare a constrained plan
+   for AFTER and implement it after approval; then add cash to AFTER and
+   compare only the two feature diffs. The exact wording of the initial cash
+   request is unavailable here, so its purpose is summarized rather than
+   quoted.
+
+4. **What effect did the Skill have?** The Skill passed local format validation,
+   but the first CLI demonstration could not verify activation because it
+   could not reach the model service. The later VS Code session loaded the
+   repository-local Skill and repeated the earlier five-principle findings.
+   Its instructions made evidence, uncertainty, and approval boundaries
+   explicit; the observed review showed no demonstrable improvement in
+   analytical quality over the prior analysis.
+
+5. **What would we change next time?** Keep the assignment handout, exact
+   prompts, and review decisions with the project; capture baseline output and
+   reachable Git references before changes; and verify Skill activation in the
+   intended environment early. Check repository ownership before Git work and
+   use command-scoped configuration when needed. These steps would make the
+   experiment easier to reproduce and audit; they do not imply an unmeasured
+   improvement in Codex's analysis.
