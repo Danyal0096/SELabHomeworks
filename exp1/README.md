@@ -16,7 +16,7 @@ continuous deployment using GitHub Actions and GitHub Pages.
 - GitHub Actions
 
 ## Development Status
-Project initialized. Development in progress.
+The initial portfolio website is implemented and deployed. Experiment 1 documentation and final verification are in progress.
 
 ## Merge Conflict 1 — Hero Introduction
 
@@ -84,3 +84,33 @@ and committed.
 - `git diff --check` reported no errors.
 - `git diff --cached --check` reported no errors.
 - `git status` confirmed a clean working tree.
+
+## Live Deployment
+
+**Website:** https://danyal0096.github.io/SELabHomeworks/
+
+**Repository:** https://github.com/Danyal0096/SELabHomeworks
+
+**Production pull request:**
+https://github.com/Danyal0096/SELabHomeworks/pull/8
+
+### Deployment Process
+
+The website is automatically deployed using GitHub Actions.
+
+1. Development takes place on feature branches.
+2. Completed features are merged into `dev` through pull requests.
+3. A release pull request merges `dev` into the protected `main` branch.
+4. A push to `main` triggers the deployment workflow.
+5. GitHub Actions verifies the required website files.
+6. The workflow uploads the contents of `exp1/` and deploys them to GitHub Pages.
+
+### Deployment Verification
+
+The initial deployment completed successfully.
+
+Workflow run:
+https://github.com/Danyal0096/SELabHomeworks/actions/runs/35565273805
+
+The deployed website was opened in a browser, confirming
+that the HTML and CSS were published successfully.
