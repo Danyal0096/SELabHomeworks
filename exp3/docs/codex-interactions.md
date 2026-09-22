@@ -1,17 +1,25 @@
 # Codex interaction register — actual exchanges only
 
-**8 real requests recorded toward the required 12; CX-02 and CX-04 through CX-08 lack explicit owner evaluations.** The quoted passages below are verbatim excerpts from this conversation, not complete transcripts. Summaries are labeled as summaries. A pending evaluation is not an adopted decision.
+**10 genuine requests recorded toward the required 12.** The quoted passages below are verbatim excerpts from this conversation, not complete transcripts. Summaries are labeled as summaries. A pending evaluation is not an adopted decision, and an assistant assessment is not an owner evaluation.
 
 | ID | Actual topic | Prompt and response | Evaluation and decision | Related evidence |
 | --- | --- | --- | --- | --- |
 | CX-01 | Read-only original-source defect analysis | Verbatim excerpts and faithful summary below | Candidate contracts accepted only after project-owner approval and RED tests | `Test/ShoppingCartPrecisionTest.java`, `Test/ShoppingCartPriceValidationTest.java`, `Test/ShoppingCartNameValidationTest.java`; `evidence/bugs/` |
-| CX-02 | Finalize bug-discovery documentation | Current request and this turn's response summary below | User evaluation pending | These documentation edits; `git diff --check` result to be reported in the final response |
-| CX-03 | Read-only pre-submission audit | Actual excerpts and response summary below | Assistant review and independent handout verification; earlier owner decisions recorded separately | Audit response in this conversation; retained XML and Git history |
+| CX-02 | Finalize bug-discovery documentation | Prompt excerpts and response summary below | Work committed as `2a712eb`; qualitative owner evaluation unavailable | `2a712eb` |
+| CX-03 | Read-only pre-submission audit | Prompt/response excerpts and response summary below | No owner evaluation; assistant review, independent verification, and earlier owner decisions distinguished below | Audit response in this conversation; retained XML and Git history |
 | CX-04 | First documentation cleanup stage | Request excerpts and work summary below | Owner evaluation pending; cleanup committed as `b3c0217` | `b3c0217` |
 | CX-05 | Second documentation cleanup stage | Request excerpts and work summary below | Owner evaluation pending; cleanup committed as `b84030d` | `b84030d` |
-| CX-06 | Read-only review of update-price test gaps | Request and response excerpts below | Recommended cases requested in CX-07; no explicit review evaluation | `Test/`, `src/ShoppingCart.java`, prior final JaCoCo XML |
+| CX-06 | Read-only review of update-price test gaps | Request and response excerpts below | Cases adopted in CX-07; qualitative owner evaluation unavailable | `Test/`, `src/ShoppingCart.java`, prior final JaCoCo XML |
 | CX-07 | Add focused update validation regressions | Request excerpts and work summary below | Owner evaluation pending; changes committed as `3d7f3bf` | `3d7f3bf` |
-| CX-08 | Verify committed HEAD in a detached clean checkout | Request and work summaries below | Owner evaluation pending | `evidence/final-verification/clean-checkout-cx08.txt` |
+| CX-08 | Verify committed HEAD in a detached clean checkout | Prompt/response excerpts and work summary below | Owner evaluation pending; evidence committed as `005492c` | `005492c`; `evidence/final-verification/clean-checkout-cx08.txt` |
+| CX-09 | Final evidence and repository-integrity audit | Prompt/response excerpts and findings summary below | File disposition decided in CX-10; broader owner evaluation pending | Audit response in this conversation; Git history and retained evidence |
+| CX-10 | Reconcile the interaction register | Prompt excerpts and contemporaneous work summary below | Owner evaluation pending | This documentation diff and commit-reference check |
+
+## Completeness audit
+
+Each CX-01 through CX-10 entry below now identifies the actual prompt through verbatim excerpts or a clearly labeled faithful summary, the actual response through excerpts or a labeled summary, a technical critique, and the known decision state. Full verbatim transcripts are not stored in this repository. The repository retains response summaries for CX-02, CX-04, CX-05, CX-07, and CX-10; CX-05 and CX-07 also include verified response excerpts. Summaries are not represented as quotations.
+
+CX-01 has a later owner-approved contract decision. CX-04, CX-05, CX-07, and CX-08 have repository adoption evidence through commits, but a commit does not supply a qualitative owner evaluation. CX-06's recommendations were adopted by the CX-07 request. CX-09 has the later CX-10 decision about the two private-archive files. Explicit qualitative owner evaluations remain unavailable for CX-02 through CX-10, except for those narrower adoption or disposition decisions. CX-03's assistant review and independent handout verification remain separate from the project owner's earlier discount and GitHub decisions.
 
 ## CX-01 — Original-source defect analysis
 
@@ -65,7 +73,7 @@ The full request also named the files and evidence to read, supplied owner-verif
 
 **Critique and independent checks:** The supplied hash `06b6cd4` does not resolve; `git log` and `git show` identify `06eb6c4`. The bug reports preserve class-level outcomes but omit exact Maven invocations, exit codes, and aggregate full-suite transcripts. No separate refactor commit appears among the six bug commits. These limits are stated in the edited documents.
 
-**User evaluation and adoption decision:** Pending. This entry records the assistant's work and evidence assessment; it does not claim the owner has accepted the documentation or given feedback on this response.
+**Final decision and owner evaluation:** The documentation work was later committed as `2a712eb`. That records repository adoption, not a qualitative owner evaluation; no such evaluation is available.
 
 ## CX-03 — Read-only pre-submission audit
 
@@ -93,9 +101,11 @@ The complete request also asked for a TDD chronology, baseline/final JaCoCo and 
 
 **Response summary, not a verbatim transcript:** The audit corroborated 36 passing local Surefire tests and 28/28 killed PIT mutations from retained/local XML, identified the changed code and PIT test-selection denominators, separated ten preimplementation update-price cases from two tests added with GREEN, and noted the constructor scaffold in capacity RED. It classified all documentation files for cleanup and found no confirmed current functional failure. It explicitly left handout-specific claims uncertain because the handout was unavailable. No files were changed.
 
-**Subsequent assistant review and independent handout verification:** The assistant evaluated the audit positively, with corrections to its handout uncertainty. Independent verification established the requirements for at least 12 genuine Codex interactions, exclusion of a subtotal of exactly 100 from the discount, public Hamgit submission, a Persian report, and preservation of the original tests apart from uncommenting the three supplied feature tests. The audit's earlier uncertainty was reasonable while the handout was unavailable in that checkout.
+**Critique and independent handout verification:** The assistant evaluated the audit positively, with corrections to its handout uncertainty. Independent verification established the requirements for at least 12 genuine Codex interactions, exclusion of a subtotal of exactly 100 from the discount, public Hamgit submission, a Persian report, and preservation of the original tests apart from uncommenting the three supplied feature tests. The audit's earlier uncertainty was reasonable while the handout was unavailable in that checkout.
 
 **Project owner's earlier decisions:** The owner had already chosen to retain the original `>=100` discount behavior and to use GitHub despite the handout's public Hamgit requirement. Those decisions are separate from the assistant's later evaluation and verification. No retrospective test or refactor result is inferred from either.
+
+**Final decision and owner evaluation:** CX-04 subsequently authorized the first cleanup stage after review of the audit. No qualitative owner evaluation of CX-03 is recorded. The assistant's assessment and independent handout verification are not attributed to the owner.
 
 ## CX-04 — First documentation cleanup stage
 
@@ -137,6 +147,12 @@ The complete request also identified baseline, feature-contract, TDD, evidence-i
 
 The full request named `roadmap.md`, `commit-plan.md`, `test-plan.md`, and `submission-checklist.md`, required reference repair and a `git diff --check` report, and prohibited changes to Java, tests, Maven configuration, historical evidence, and the Persian report. These are excerpts, not a complete prompt transcript.
 
+**Actual assistant response, verbatim excerpts:**
+
+> “Completed the second documentation cleanup on `exp3-final-verification`. No commit, push, or PR was made.”
+>
+> “`git diff --check` passed.”
+
 **Assistant response summary, not a verbatim final response:** Compared the four planning files with the current README, TDD log, feature contracts, evidence index, coverage report, and Git history. Preserved the outstanding clean-checkout record and report contents in `README.md`, then removed the four obsolete planning files. Checked remaining references and left source, tests, Maven configuration, historical evidence, and the Persian report untouched. That cleanup was subsequently committed as `b84030d`; the commit does not establish an owner evaluation.
 
 **Assistant self-check / critique:** The deleted test plan listed proposed cases and stale “Not run”/“TODO” fields; none was promoted into a claim of execution. Actual test chronology remained in `tdd-log.md`; at that stage, `coverage-mutation.md` identified the uncovered update-validation paths later tested in CX-07. The deleted checklist's Hamgit item cannot be marked complete under the owner's GitHub decision; the deviation remains explicit in `README.md`. Existing untracked files were left untouched.
@@ -163,7 +179,9 @@ The full request also asked about missed JaCoCo branches, unchanged state after 
 
 **Response summary, not a verbatim transcript:** The review found direct update tests for zero, negative-price rejection, and a nonexistent item. The prior JaCoCo XML had two missed branches on the update-name guard, one on the update-price guard, and an uncovered name-exception body. Existing rejection tests checked count and total for their exercised paths. It recommended tests for null/empty/whitespace-only update names, NaN and both infinities on an existing item, and invalid-price validation before an absent-name lookup. It classified these as test gaps, with no production change indicated. No files were modified or tests run.
 
-**Critique and decision:** The recommendations concern the documented `updateItemPrice` contract, not a new defect or a coverage-score target. CX-07 subsequently requested these same cases. No separate qualitative owner evaluation of the CX-06 response was provided.
+**Critique:** The recommendations concern the documented `updateItemPrice` contract, not a new defect or a coverage-score target. The review did not run tests or change files.
+
+**Final decision and owner evaluation:** CX-07 subsequently requested the same cases, so the recommendations were adopted. No separate qualitative owner evaluation of the CX-06 response was provided.
 
 ## CX-07 — Update validation regression tests
 
@@ -181,6 +199,14 @@ The full request also asked about missed JaCoCo branches, unchanged state after 
 
 The full request also required both named Maven commands, actual JUnit/JaCoCo/PIT results, refreshed final XML after successful runs, this interaction record, and `git diff --check`. These are excerpts, not a complete prompt transcript.
 
+**Actual assistant response, verbatim excerpts:**
+
+> “Added seven focused regression cases in a new `ShoppingCartUpdateValidationTest.java`.”
+>
+> “`mvn -B clean verify` passed with **43 tests, 0 failures, 0 errors, 0 skipped**.”
+>
+> “The PIT command passed with **28/28 mutations killed**.”
+
 **Assistant response summary, not a verbatim final response:** Added `Test/ShoppingCartUpdateValidationTest.java` with seven postimplementation cases: three invalid names, three non-finite prices, and one invalid price for an absent item. The initial sandboxed `mvn -B clean verify` stopped during JaCoCo plugin resolution because network access was denied; the network-enabled rerun exited 0 with **43 tests, 0 failures, 0 errors, 0 skipped**. `mvn -B org.pitest:pitest-maven:1.19.4:mutationCoverage` exited 0 with **28/28 killed** and eight test classes selected. JaCoCo XML reports `ShoppingCart` lines **38/38**, branches **30/30**, and methods **8/8**. Refreshed the two retained final XML files and reconciled current-status documentation. These changes were subsequently committed as `3d7f3bf`; the commit does not establish an owner evaluation. No production code, original tests, discount behavior, or Persian report was changed.
 
 **Assistant self-check / critique:** These are postimplementation regression tests, not a new RED/GREEN/REFACTOR cycle or part of the ten preimplementation price-update cases. The first failed Maven attempt produced no test outcome. At the time of CX-07, the successful runs were only in the working checkout; CX-08 later added a clean-checkout record. Full coverage and 28/28 killed mutations do not prove all possible behaviors.
@@ -189,14 +215,80 @@ The full request also required both named Maven commands, actual JUnit/JaCoCo/PI
 
 ## CX-08 — Detached clean-checkout verification
 
-**Actual user request, faithful summary rather than a verbatim transcript:** The user asked for branch, HEAD, and status confirmation; a temporary detached Git worktree at current HEAD outside the repository; Java and Maven versions; `mvn -B clean verify` and `mvn -B org.pitest:pitest-maven:1.19.4:mutationCoverage` inside its `exp3` directory; actual exits and JUnit, JaCoCo, and PIT results; comparison with committed final XML; a concise verification transcript in the main branch's existing evidence directory; and removal of only that temporary worktree. The request excluded the two pre-existing untracked files and prohibited source/test/report changes, commits, pushes, and PRs.
+**Actual user request, verbatim excerpts:**
+
+> “Independently verify the committed experiment from a clean checkout.”
+>
+> “Create a temporary, detached Git worktree at the current HEAD, outside the repository.”
+>
+> “Compare the generated JaCoCo and PIT XML reports with the XML files committed under evidence/final-verification.”
+>
+> “Remove only the temporary worktree you created, after verification. Do not touch the owner's existing untracked files.”
+
+The full request also required environment versions, command exit codes, JUnit/JaCoCo/PIT totals, a concise retained transcript, CX-08 registration, and no production, test, report, or Git publication changes. These are excerpts, not a complete prompt transcript.
+
+**Actual assistant response, verbatim excerpts:**
+
+> “Verified committed HEAD `3d7f3bf9d6fccb937e77cb7b2a95a6862080fd3f` on `exp3-final-verification` in a fresh detached worktree outside the repository.”
+>
+> “The generated XML is **not byte-identical** to the committed XML: JaCoCo differs only in run-specific session metadata, and PIT only in line endings.”
 
 **Assistant response summary, recorded during this turn rather than represented as a verbatim final response:** Confirmed branch `exp3-final-verification`, HEAD `3d7f3bf9d6fccb937e77cb7b2a95a6862080fd3f`, and clean tracked status. Created a detached worktree under the system TEMP directory from that HEAD, without copying working-directory files. It contained all 63 tracked `exp3` files and had no missing tracked files. Java was Temurin 25.0.4.1+1; Maven was 3.9.16. Both requested Maven commands exited 0: 43 tests passed with no failures/errors/skips; ShoppingCart JaCoCo was 38/38 lines, 30/30 branches, and 8/8 methods; PIT killed 28/28 mutations. Generated JaCoCo XML differed from committed XML only in session metadata; PIT XML differed only in line endings. Saved `evidence/final-verification/clean-checkout-cx08.txt`, then removed the verified temporary worktree. Updated current verification references in README, TDD log, coverage report, and evidence index. The final changed-file list and diff check are reported in this turn's final response.
 
 **Assistant self-check / critique:** The XML files are not byte-identical, so the result is a semantic match, not a byte-for-byte reproduction. The concise transcript includes commands and exit codes, not full Maven console output; a cold offline build was not tested. Initial sandboxed worktree creation was denied because Git metadata was outside the writable area, then succeeded with the required filesystem access. No production code or tests were changed.
 
-**Owner evaluation and adoption decision:** Pending. No owner evaluation of the CX-08 response has been supplied.
+**Final decision and owner evaluation:** The verification record and related documentation were later committed as `005492c`. No qualitative owner evaluation of the CX-08 response has been supplied.
+
+## CX-09 — Final evidence and repository-integrity audit
+
+**Actual user request, verbatim excerpts:**
+
+> “Perform a READ-ONLY final evidence and repository-integrity audit.”
+>
+> “Determine whether either untracked file contains unique, useful evidence that is not already committed.”
+>
+> “Check that the documented TDD chronology matches actual Git history. Do not invent separate refactoring stages.”
+>
+> “Prepare a concise factual inventory of verified material that can be used later to write the Persian final report. Do NOT write the report itself.”
+
+The full request named the two local untracked files, required evidence-path and commit validation, README-command review, documentation consistency checks, and a Codex-register count. It prohibited file changes, redundant Maven/PIT runs, publication actions, and writing the report. These are excerpts, not a complete prompt transcript.
+
+**Actual assistant response, verbatim excerpts:**
+
+> “At `005492c` on `exp3-final-verification`, tracked files are clean.”
+>
+> “The material stale document is `report-fa.md`.”
+>
+> “`codex-interactions.md` records **eight genuine interactions**, four short of the required twelve.”
+
+**Response summary, not a verbatim transcript:** The audit found that cited evidence paths and all intended commit references exist; `06b6cd4` remains an explicitly documented mistaken hash and `06eb6c4` is the real RED commit. README reproduces the two verified Maven commands. It identified the Persian report as stale and incomplete, confirmed the documented RED/GREEN chronology with no separate refactor stages, and assembled baseline/final facts for later reporting. It recommended archiving the exploratory decimal report and discarding the old review patch, without moving, deleting, or staging either file.
+
+**Critique:** The artifact dispositions were recommendations, not actions. The audit did not rerun Maven or PIT. Its path check distinguished historical Maven-style source paths from missing current evidence, and it kept owner-supplied historical full-suite totals separate from retained class reports.
+
+**Final decision and owner evaluation:** CX-10 supplied a narrower owner decision: keep both files in a private archive outside the repository and do not treat either as submission evidence. That decision supersedes the CX-09 discard recommendation for the patch. No broader qualitative owner evaluation of the CX-09 audit is recorded.
+
+## CX-10 — Interaction-register reconciliation
+
+**Actual user request, verbatim excerpts:**
+
+> “Reconcile the Codex interaction register with the genuine interactions that have actually occurred.”
+>
+> “Review CX-01 through CX-09 for the four required elements: prompt, response, critique, and final decision.”
+>
+> “Identify missing owner evaluations without inventing them. Do not attribute the assistant's technical assessments to the owner.”
+>
+> “Reconcile documentation with the decision to keep both previously untracked files in a private archive outside the repository. Do not claim they are submission evidence.”
+>
+> “Record this CX-10 request and your actual work. Leave its owner evaluation pending.”
+
+The full request also required checking commit references, modifying only existing documentation, avoiding code/test/POM/evidence changes and Git publication, and running `git diff --check`. These are excerpts, not a complete prompt transcript.
+
+**Assistant response summary, recorded during this turn rather than represented as a verbatim final response:** Reviewed the available conversation records and all CX-01 through CX-09 entries. Added the completeness audit and CX-09/CX-10 entries; restored exact excerpts where the current conversation supplied them; labeled all summaries; separated assistant assessments, owner decisions, repository adoption, and pending qualitative evaluations. Verified the cited commit objects against Git history: all intended references resolve, while the supplied `06b6cd4` remains correctly labeled as nonexistent and `06eb6c4` as the actual RED commit. Updated the evidence index and TDD log so the two local artifacts are designated for private archival outside the repository and excluded from submission evidence. The final changed-file list, incomplete evidence, factual corrections, and `git diff --check` result belong to this turn's final response.
+
+**Critique:** The repository does not contain full conversation transcripts, and several earlier responses remain available only as faithful summaries. A later commit proves that work entered repository history, but it does not prove a qualitative owner evaluation. This documentation-only task does not itself move the two local files to the private archive.
+
+**Final decision and owner evaluation:** Pending. No owner evaluation of CX-10 is claimed.
 
 ## Remaining interaction requirement
 
-Eight real requests are recorded, but CX-02 and CX-04 through CX-08 lack explicit owner evaluations. At least four further genuine exchanges are needed to reach 12, and pending evaluations must be completed from actual owner feedback. Do not invent exchanges or decisions.
+Ten genuine requests are recorded. At least two further genuine exchanges are needed to reach the required 12. Full transcripts are not retained, and qualitative owner evaluations remain unavailable for CX-02 through CX-10 except for the narrower adoption or disposition decisions documented above. Do not invent exchanges, transcript text, or evaluations.
