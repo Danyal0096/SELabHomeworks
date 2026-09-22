@@ -6,6 +6,21 @@ public class ShoppingCart {
 
     private Map<String, Double> items = new HashMap<>();
 
+    private final int maxItems;
+
+    public ShoppingCart() {
+        this(Integer.MAX_VALUE);
+    }
+
+    public ShoppingCart(int maxItems) {
+        if (maxItems <= 0) {
+            throw new IllegalArgumentException(
+                "Capacity must be positive"
+            );
+        }
+
+        this.maxItems = maxItems;
+    }
 
 
     public void addItem(String name, double price) {
