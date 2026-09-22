@@ -81,4 +81,15 @@ public class ShoppingCartUpdatePriceTest {
         assertEquals(20.0, cart.getTotal());
         assertEquals(1, cart.getItemCount());
     }
+    
+    @Test
+    void shouldSupportDecimalPriceUpdates() {
+        ShoppingCart cart = new ShoppingCart();
+        cart.addItem("Book", 10.0);
+
+        cart.updateItemPrice("Book", 12.75);
+
+        assertEquals(12.75, cart.getTotal());
+        assertEquals(1, cart.getItemCount());
+    }
 }
