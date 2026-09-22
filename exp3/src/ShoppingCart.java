@@ -36,6 +36,12 @@ public class ShoppingCart {
             );
         }
 
+        if (!items.containsKey(name) && items.size() >= maxItems) {
+            throw new IllegalStateException(
+                "Shopping cart capacity exceeded"
+            );
+        }
+
         items.put(name, price);
     }
 
