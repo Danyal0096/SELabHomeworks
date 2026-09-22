@@ -1,6 +1,6 @@
 # Codex interaction register — actual exchanges only
 
-**10 genuine requests recorded toward the required 12.** The quoted passages below are verbatim excerpts from this conversation, not complete transcripts. Summaries are labeled as summaries. A pending evaluation is not an adopted decision, and an assistant assessment is not an owner evaluation.
+**12 genuine requests recorded; the required numerical minimum is met.** The quoted passages below are verbatim excerpts from this conversation, not complete transcripts. Summaries are labeled as summaries. A pending evaluation is not an adopted decision, and an assistant assessment is not an owner evaluation.
 
 | ID | Actual topic | Prompt and response | Evaluation and decision | Related evidence |
 | --- | --- | --- | --- | --- |
@@ -14,12 +14,14 @@
 | CX-08 | Verify committed HEAD in a detached clean checkout | Prompt/response excerpts and work summary below | Owner evaluation pending; evidence committed as `005492c` | `005492c`; `evidence/final-verification/clean-checkout-cx08.txt` |
 | CX-09 | Final evidence and repository-integrity audit | Prompt/response excerpts and findings summary below | File disposition decided in CX-10; broader owner evaluation pending | Audit response in this conversation; Git history and retained evidence |
 | CX-10 | Reconcile the interaction register | Prompt excerpts and contemporaneous work summary below | Owner evaluation pending | This documentation diff and commit-reference check |
+| CX-11 | Read-only fact-check of the Persian report | Prompt and response excerpts plus findings summary below | Corrected report supplied afterward; no qualitative owner evaluation | `docs/report-fa.md`; source, tests, retained XML, and Git history |
+| CX-12 | Final documentation and delivery audit | Prompt excerpts and contemporaneous work summary below | Owner evaluation pending | This documentation diff; interaction and evidence audits |
 
 ## Completeness audit
 
-Each CX-01 through CX-10 entry below now identifies the actual prompt through verbatim excerpts or a clearly labeled faithful summary, the actual response through excerpts or a labeled summary, a technical critique, and the known decision state. Full verbatim transcripts are not stored in this repository. The repository retains response summaries for CX-02, CX-04, CX-05, CX-07, and CX-10; CX-05 and CX-07 also include verified response excerpts. Summaries are not represented as quotations.
+Each CX-01 through CX-12 entry below identifies the actual prompt through verbatim excerpts or a clearly labeled faithful summary, the actual response through excerpts or a labeled summary, a technical critique, and the known decision state. Full verbatim transcripts are not stored in this repository. The repository retains response summaries for CX-02, CX-04, CX-05, CX-07, CX-10, and CX-12; CX-05 and CX-07 also include verified response excerpts. Summaries are not represented as quotations.
 
-CX-01 has a later owner-approved contract decision. CX-04, CX-05, CX-07, and CX-08 have repository adoption evidence through commits, but a commit does not supply a qualitative owner evaluation. CX-06's recommendations were adopted by the CX-07 request. CX-09 has the later CX-10 decision about the two private-archive files. Explicit qualitative owner evaluations remain unavailable for CX-02 through CX-10, except for those narrower adoption or disposition decisions. CX-03's assistant review and independent handout verification remain separate from the project owner's earlier discount and GitHub decisions.
+CX-01 has a later owner-approved contract decision. CX-04, CX-05, CX-07, and CX-08 have repository adoption evidence through commits, but a commit does not supply a qualitative owner evaluation. CX-06's recommendations were adopted by the CX-07 request. CX-09 has the later CX-10 decision about the two private-archive files. The corrected report supplied before CX-12 adopts several CX-11 recommendations, but that adoption is not a qualitative owner evaluation. Explicit qualitative owner evaluations remain unavailable for CX-02 through CX-12 except for the narrower adoption or disposition decisions recorded below; CX-12 is still pending. CX-03's assistant review and independent handout verification remain separate from the project owner's earlier discount and GitHub decisions.
 
 ## CX-01 — Original-source defect analysis
 
@@ -289,6 +291,54 @@ The full request also required checking commit references, modifying only existi
 
 **Final decision and owner evaluation:** Pending. No owner evaluation of CX-10 is claimed.
 
-## Remaining interaction requirement
+## CX-11 — Independent fact-check of the Persian final report
 
-Ten genuine requests are recorded. At least two further genuine exchanges are needed to reach the required 12. Full transcripts are not retained, and qualitative owner evaluations remain unavailable for CX-02 through CX-10 except for the narrower adoption or disposition decisions documented above. Do not invent exchanges, transcript text, or evaluations.
+**Actual user request, verbatim excerpts:**
+
+> “Perform a READ-ONLY review of docs/report-fa.md against the actual repository and its retained evidence.”
+>
+> “Check the report for: Technical accuracy ... TDD chronology ... Numerical accuracy ... Evidence integrity ... Specification consistency ... Persian quality ... Completeness.”
+>
+> “Do not record CX-11 in the interaction register yet; we will record the actual response and review outcome afterward.”
+
+The full request named the source, tests, POM, README, supporting documentation, retained baseline/final XML, and relevant Git history. It prohibited edits, new files, publication actions, fabricated evidence, and another Maven/PIT run unless indispensable. These are excerpts, not a complete prompt transcript.
+
+**Actual assistant response, verbatim excerpts:**
+
+> “No files were changed, and Maven/PIT were not rerun.”
+>
+> “No incorrect RED/GREEN SHA, final test count, JaCoCo denominator, PIT denominator, or environment version was found.”
+>
+> “The update-price validation contract omits NaN.”
+>
+> “Owner attribution is too broad.”
+
+**Response summary, not a verbatim transcript:** The review confirmed the baseline, three defect cycles, both feature histories, absence of separate refactor stages, final 43-test result, ShoppingCart JaCoCo counters, 28/28 PIT result, environment versions, local evidence links, and locally resolving commit objects. It recommended adding `NaN` to the update contract, narrowing owner attribution, qualifying an unretained intermediate PIT result, stating original-test preservation directly, disclosing the Hamgit/GitHub deviation, completing the 12-interaction requirement, and improving a few Persian/RTL phrases. It also noted that the report was then a working-tree draft and README still called it unfinished.
+
+**Critique and subsequent correction check:** CX-11 was a read-only evidence review and did not apply its recommendations. The corrected report supplied by the owner before CX-12 now states original-test preservation, includes `NaN`, avoids claiming the intermediate PIT count, narrows owner approval, discloses the missing capacity-preapproval record, clarifies the comparison language, and renders the command block left-to-right. The remaining substantive presentation gap found in CX-12 is that the report identifies GitHub as the chosen venue but does not explicitly say that this departs from the handout's public-Hamgit requirement; README does state that fact.
+
+**Final decision and owner evaluation:** The owner reports replacing `docs/report-fa.md` with a corrected version following CX-11. This demonstrates adoption of several recommendations, not a qualitative evaluation of the response. No qualitative owner evaluation of CX-11 is recorded.
+
+## CX-12 — Final documentation and delivery audit
+
+**Actual user request, verbatim excerpts:**
+
+> “Reconcile the final documentation and check whether Experiment 3 is ready for a pull request.”
+>
+> “Record CX-11 in docs/codex-interactions.md using its genuine fact-check request and actual findings.”
+>
+> “Verify that the interaction register now contains 12 genuine interactions, each with an identifiable prompt, response, critique, and decision status.”
+>
+> “Do not rerun Maven or PIT: the executable revision has already passed detached clean-checkout verification.”
+
+The full request required checking the corrected report, updating stale report/interaction statements, validating numerical claims, commit IDs, relative links, and evidence references, examining Git status and the diff, and running `git diff --check`. It prohibited code, test, POM, historical-evidence, staging, commit, push, merge, and PR changes. These are excerpts, not a complete prompt transcript.
+
+**Assistant response summary, recorded during this turn rather than represented as a verbatim final response:** Inspected the corrected report against source, tests, documentation, retained XML, evidence, and Git history. Verified its metrics, RED/GREEN references, evidence links, explicit lack of a refactor stage and capacity preapproval, and lack of final-delivery proof. Added genuine CX-11 and CX-12 records, raised the register to 12, updated stale README/report counts, and reconciled the private-archive note with the current working-tree inventory. No executable file, POM, or historical evidence was changed, and Maven/PIT were not rerun. The final changed-file list, remaining report issue, proposed commit contents, status, and `git diff --check` result are reported in the assistant's final response.
+
+**Critique:** This audit relies on the retained CX-08 clean-checkout transcript for executable verification. Full console output from that run and several older full conversation transcripts remain unavailable. The final report still needs an explicit statement at line 103 that choosing GitHub departs from the handout's public-Hamgit requirement; this audit does not silently rewrite that substantive statement.
+
+**Final decision and owner evaluation:** Pending. No owner evaluation, final delivery, merge, or pull-request result is claimed.
+
+## Remaining interaction evidence limits
+
+Twelve genuine requests are recorded, meeting the required numerical minimum. Every entry identifies a prompt, response, critique, and decision status, although several older responses survive only as labeled summaries. Full transcripts are not retained, and qualitative owner evaluations remain unavailable for CX-02 through CX-12 except for the narrower adoption or disposition decisions documented above. Do not invent exchanges, transcript text, evaluations, or delivery evidence.

@@ -12,4 +12,4 @@ These are retained artifacts, not a claim that every full-suite command or exit 
 
 Local `target/surefire-reports/` currently totals 43 passing tests. The CX-08 record includes clean-checkout exit codes, but full Maven console output from that checkout is not retained. The empty placeholder directories under `evidence/` contain no additional measurements. Preserve the distinction between saved reports, local generated output, and owner-supplied observations.
 
-The separate `decimal-update-red.txt` and `exp3-review.patch` artifacts are designated for a private archive outside this repository. They are not committed history or submission evidence and are intentionally omitted from the evidence inventory above. This documentation-only task does not claim that their local untracked copies have already been moved.
+The separate `decimal-update-red.txt` and `exp3-review.patch` artifacts were designated for a private archive outside this repository. They are not committed history or submission evidence, are intentionally omitted from the evidence inventory above, and are not present in the current working tree.

@@ -26,4 +26,4 @@ The original experiment handout excludes a subtotal of exactly 100 from the disc
 
 ## Submission status
 
-`docs/report-fa.md` is still an unfinished Persian RTL report; it needs to reflect the actual defect, feature, TDD, coverage, mutation, and reproduction evidence. `docs/codex-interactions.md` records the real exchanges available so far; the handout requires at least 12. The CX-08 clean-checkout record includes the revision, Java/Maven versions, commands, exit codes, and test/metric results, but not full console output. No delivery evidence is retained yet.
+`docs/report-fa.md` contains the reconciled Persian RTL report. `docs/codex-interactions.md` records 12 genuine exchanges, meeting the handout's numerical minimum; unavailable full transcripts and qualitative owner evaluations remain identified rather than reconstructed. The CX-08 clean-checkout record includes the revision, Java/Maven versions, commands, exit codes, and test/metric results, but not full console output. No pull-request identifier or final-delivery evidence is retained yet.
