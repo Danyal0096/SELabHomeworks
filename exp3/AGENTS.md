@@ -1,10 +1,10 @@
 # Instructions for coding assistants (Experiment 3 only)
 
-This is a documentation scaffold, not the ShoppingCart source. The TA has not yet provided access to the prescribed base project.
+The actual ShoppingCart source is now present in `src/main/java/` and the original tests in `src/test/java/`. Review `docs/source-audit.md`, `docs/ta-clarifications.md` and capture a real Maven/JUnit baseline before changing code.
 
 1. Do not invent the ShoppingCart implementation, its interfaces, existing tests, build tool, failures, or numerical results.
 2. Never edit the base project's original tests, **except uncommenting the three feature tests expressly identified by the handout when the actual files are available**. Keep any additional tests in separate traceable files.
-3. Before proposing fixes, inspect the real repository and capture a reproducible baseline; formulate behavioral contracts from the actual code and problem statement, identifying unresolved choices explicitly.
+3. The real repository has been statically inspected; next capture a reproducible Maven/JUnit baseline; formulate behavioral contracts from the actual code and problem statement, identifying unresolved choices explicitly.
 4. For each of three independent bugs: add a failing regression test → capture failure → minimal fix → run the full suite → record root cause, why old tests missed it, and possible regressions. Preserve separate meaningful commits.
 5. For `updateItemPrice`, write at least eight meaningful tests before implementation (including the three provided uncommented tests, if valid). A missing method may produce a compilation failure during the first Red stage; later prove genuine assertion failures where feasible. Implement Green minimally, then Refactor with suite verification.
 6. For a second business feature, agree a precise observable contract before code. The **proposed** capacity-limit feature in `docs/feature-contracts.md` is not yet approved or implemented.

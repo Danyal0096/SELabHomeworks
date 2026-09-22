@@ -1,0 +1,17 @@
+Date: 2026-09-22
+Source: student-uploaded base-project-for-tdd-shoppingcart-main.zip
+Environment: separate Linux sandbox, OpenJDK 21.0.11
+Command: javac -d ../../out src/*.java
+Observed result: exit code 0; Item.class, Main.class, ShoppingCart.class generated.
+Command: java -cp ../../out Main
+Observed output:
+Hello and welcome!i = 1
+i = 2
+i = 3
+i = 4
+i = 5
+Maven available in sandbox: NO
+JUnit tests executed: NO
+JaCoCo executed: NO
+PIT executed: NO
+Caution: Main is IntelliJ demo boilerplate; this is not a ShoppingCart behavior test or JUnit baseline.

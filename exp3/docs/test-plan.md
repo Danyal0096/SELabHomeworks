@@ -1,12 +1,17 @@
 # Behavior-oriented test plan
 
-**Status:** preliminary only; actual test names, cases, and results are unknown. Do not create tests until original source and three commented feature tests can be inspected. The method signature and required threshold come from the handout.
+**Status:** source/test inventory verified; JUnit result, behavioral choices, and three independently proven bugs still pending. The handout specifies `(String,double)`, whereas starter contains an empty `(String,int)` stub.
+
+> **Source inspection update (2026-09-22):** Four active original tests: `testAddItem`, `testRemoveItem`, `testDiscountAtBoundary_WRONG`, `testDiscountAboveThreshold`. Three commented tests: `testUpdateItemPrice_ShouldChangePrice`, `testUpdateItemPrice_ShouldNotChangeCount`, `testUpdateItemPrice_ItemNotFound_ShouldDoNothing`. The boundary test contradicts the handout; its expected result is 90 at exactly 100. See `source-audit.md` and `ta-clarifications.md`. JUnit results remain unmeasured.
 
 ## Original tests (must be preserved)
 
 | Original class/method | Behavior | Baseline result | Notes |
 | --- | --- | --- | --- |
-| TODO | TODO | TODO | TODO |
+| `testAddItem` | one Book (50) → count 1 and total 50 | Not run | duplicates/invalid values |
+| `testRemoveItem` | one Pen (5) removed → true, count 0, total 0 | Not run | absent or repeated removal |
+| `testDiscountAtBoundary_WRONG` | 40+60 → **expects 90** | Not run | contradicts handout (expects 100) |
+| `testDiscountAboveThreshold` | 120 → 108 | Not run | decimals, repeat calls |
 
 ## Three independent bug regression tests
 
