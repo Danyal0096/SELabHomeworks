@@ -1,11 +1,47 @@
 import java.util.HashMap;
 import java.util.Map;
+import java.math.BigDecimal;
 
 public class ShoppingCart {
 
     private Map<String, Double> items = new HashMap<>();
 
+    private final int maxItems;
+
+    public ShoppingCart() {
+        this(Integer.MAX_VALUE);
+    }
+
+    public ShoppingCart(int maxItems) {
+        if (maxItems <= 0) {
+            throw new IllegalArgumentException(
+                "Capacity must be positive"
+            );
+        }
+
+        this.maxItems = maxItems;
+    }
+
+
     public void addItem(String name, double price) {
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException(
+                "Item name must not be null or blank"
+            );
+        }
+
+        if (!Double.isFinite(price) || price < 0) {
+            throw new IllegalArgumentException(
+                "Item price must be finite and non-negative"
+            );
+        }
+
+        if (!items.containsKey(name) && items.size() >= maxItems) {
+            throw new IllegalStateException(
+                "Shopping cart capacity exceeded"
+            );
+        }
+
         items.put(name, price);
     }
 
@@ -18,12 +54,15 @@ public class ShoppingCart {
     }
 
     public double getTotal() {
-        double total = 0.0;
+        BigDecimal total = BigDecimal.ZERO;
+
         for (double price : items.values()) {
-            total += price;
+            total = total.add(BigDecimal.valueOf(price));
         }
-        return total;
+
+        return total.doubleValue();
     }
+
     public double getTotalWithDiscount() {
         double total = getTotal();
         if (total >= 100) {
@@ -36,6 +75,26 @@ public class ShoppingCart {
         return items.size();
     }
 
-    public void updateItemPrice(String name, int newPrice) {}
+    
+public boolean updateItemPrice(String name, double newPrice) {
+    if (name == null || name.isBlank()) {
+        throw new IllegalArgumentException(
+            "Item name must not be null or blank"
+        );
+    }
+
+    if (!Double.isFinite(newPrice) || newPrice < 0) {
+        throw new IllegalArgumentException(
+            "Item price must be finite and non-negative"
+        );
+    }
+
+    if (!items.containsKey(name)) {
+        return false;
+    }
+
+    items.put(name, newPrice);
+    return true;
+}
 
 }
