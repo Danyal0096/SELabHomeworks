@@ -92,4 +92,23 @@ public class ShoppingCartUpdatePriceTest {
         assertEquals(12.75, cart.getTotal());
         assertEquals(1, cart.getItemCount());
     }
+
+    @Test
+    void shouldReturnTrueWhenUpdateSucceeds() {
+        ShoppingCart cart = new ShoppingCart();
+        cart.addItem("Book", 20.0);
+
+        assertTrue(cart.updateItemPrice("Book", 35.0));
+        assertEquals(35.0, cart.getTotal());
+    }
+
+    @Test
+    void shouldReturnFalseWhenItemDoesNotExist() {
+        ShoppingCart cart = new ShoppingCart();
+        cart.addItem("Book", 20.0);
+
+        assertFalse(cart.updateItemPrice("Pen", 10.0));
+        assertEquals(20.0, cart.getTotal());
+        assertEquals(1, cart.getItemCount());
+    }
 }
