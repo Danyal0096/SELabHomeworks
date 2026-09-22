@@ -1,6 +1,6 @@
 # Software Engineering Lab — Experiment 3
 
-The cart and tests are under `src/` and `Test/`; `pom.xml` configures both directories. The current implementation includes three owner-approved defect corrections, `updateItemPrice(String,double)`, and a configurable item-capacity limit. The final local Surefire reports total **36 passing tests**. Retained final PIT XML records **28 killed of 28 generated mutations** for `ShoppingCart`. These observations do not replace a retained clean-checkout command transcript.
+The cart and tests are under `src/` and `Test/`; `pom.xml` configures both directories. The current implementation includes three owner-approved defect corrections, `updateItemPrice(String,double)`, and a configurable item-capacity limit. The latest local Surefire reports total **43 passing tests**. Retained PIT XML records **28 killed of 28 generated mutations** for `ShoppingCart`. These observations do not replace a retained clean-checkout command transcript.
 
 ## Build and evidence
 

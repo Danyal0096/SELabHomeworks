@@ -1,6 +1,6 @@
 # Codex interaction register — actual exchanges only
 
-**5 real requests recorded toward the required 12; CX-02, CX-04, and CX-05 still lack owner evaluation.** The quoted passages below are verbatim excerpts from this conversation, not complete transcripts. Summaries are labeled as summaries. A pending evaluation is not an adopted decision.
+**7 real requests recorded toward the required 12; CX-02, CX-04, CX-05, CX-06, and CX-07 lack explicit owner evaluations.** The quoted passages below are verbatim excerpts from this conversation, not complete transcripts. Summaries are labeled as summaries. A pending evaluation is not an adopted decision.
 
 | ID | Actual topic | Prompt and response | Evaluation and decision | Related evidence |
 | --- | --- | --- | --- | --- |
@@ -9,6 +9,8 @@
 | CX-03 | Read-only pre-submission audit | Actual excerpts and response summary below | Assistant review and independent handout verification; earlier owner decisions recorded separately | Audit response in this conversation; retained XML and Git history |
 | CX-04 | First documentation cleanup stage | Request excerpts and work summary below | Owner evaluation pending; cleanup committed as `b3c0217` | `b3c0217` |
 | CX-05 | Second documentation cleanup stage | Current request and work summary below | Owner evaluation pending; no outcome claimed | README submission status and removal of four obsolete planning files |
+| CX-06 | Read-only review of update-price test gaps | Request and response excerpts below | Recommended cases requested in CX-07; no explicit review evaluation | `Test/`, `src/ShoppingCart.java`, prior final JaCoCo XML |
+| CX-07 | Add focused update validation regressions | Request excerpts and work summary below | Owner evaluation pending | New test class, refreshed final XML, current Maven and PIT output |
 
 ## CX-01 — Original-source defect analysis
 
@@ -136,10 +138,54 @@ The full request named `roadmap.md`, `commit-plan.md`, `test-plan.md`, and `subm
 
 **Assistant response summary, recorded during this turn rather than represented as a verbatim final response:** Compared the four planning files with the current README, TDD log, feature contracts, evidence index, coverage report, and Git history. Preserved the outstanding clean-checkout record and report contents in `README.md`, then removed the four obsolete planning files. Checked remaining references and left source, tests, Maven configuration, historical evidence, and the Persian report untouched. The final changed-file list and `git diff --check` result belong to this turn's final response.
 
-**Assistant self-check / critique:** The deleted test plan listed proposed cases and stale “Not run”/“TODO” fields; none was promoted into a claim of execution. Actual test chronology remains in `tdd-log.md`, and the uncovered update-validation paths remain identified in `coverage-mutation.md`. The deleted checklist's Hamgit item cannot be marked complete under the owner's GitHub decision; the deviation remains explicit in `README.md`. Existing untracked files were left untouched.
+**Assistant self-check / critique:** The deleted test plan listed proposed cases and stale “Not run”/“TODO” fields; none was promoted into a claim of execution. Actual test chronology remained in `tdd-log.md`; at that stage, `coverage-mutation.md` identified the uncovered update-validation paths later tested in CX-07. The deleted checklist's Hamgit item cannot be marked complete under the owner's GitHub decision; the deviation remains explicit in `README.md`. Existing untracked files were left untouched.
 
 **Owner evaluation and adoption decision:** Pending. The user has not yet evaluated this cleanup response.
 
+## CX-06 — Focused read-only technical review
+
+**Actual user request, verbatim excerpts:**
+
+> “1. Does updateItemPrice have direct tests for:”
+>
+> “Do not recommend tests merely to increase coverage percentages.”
+>
+> “Return your findings and wait for review.”
+
+The full request also asked about missed JaCoCo branches, unchanged state after rejection, implementation defects versus test gaps, and reasons for each proposed test. These are excerpts, not a complete prompt transcript.
+
+**Actual assistant response, verbatim excerpts:**
+
+> “There are **no direct update tests** for null or blank names, or for NaN and either infinity.”
+>
+> “No implementation defect was identified in this focused review.”
+
+**Response summary, not a verbatim transcript:** The review found direct update tests for zero, negative-price rejection, and a nonexistent item. The prior JaCoCo XML had two missed branches on the update-name guard, one on the update-price guard, and an uncovered name-exception body. Existing rejection tests checked count and total for their exercised paths. It recommended tests for null/empty/whitespace-only update names, NaN and both infinities on an existing item, and invalid-price validation before an absent-name lookup. It classified these as test gaps, with no production change indicated. No files were modified or tests run.
+
+**Critique and decision:** The recommendations concern the documented `updateItemPrice` contract, not a new defect or a coverage-score target. CX-07 subsequently requested these same cases. No separate qualitative owner evaluation of the CX-06 response was provided.
+
+## CX-07 — Update validation regression tests
+
+**Actual user request, verbatim excerpts:**
+
+> “1. Invalid names: null, "", and "   ".”
+>
+> “2. Invalid prices: NaN, positive infinity, and negative infinity.”
+>
+> “3. A nonexistent item combined with an invalid price.”
+>
+> “Do not change production code or the existing discount behavior.”
+>
+> “Do not commit, push, or create a PR.”
+
+The full request also required both named Maven commands, actual JUnit/JaCoCo/PIT results, refreshed final XML after successful runs, this interaction record, and `git diff --check`. These are excerpts, not a complete prompt transcript.
+
+**Assistant response summary, recorded during this turn rather than represented as a verbatim final response:** Added `Test/ShoppingCartUpdateValidationTest.java` with seven postimplementation cases: three invalid names, three non-finite prices, and one invalid price for an absent item. The initial sandboxed `mvn -B clean verify` stopped during JaCoCo plugin resolution because network access was denied; the network-enabled rerun exited 0 with **43 tests, 0 failures, 0 errors, 0 skipped**. `mvn -B org.pitest:pitest-maven:1.19.4:mutationCoverage` exited 0 with **28/28 killed** and eight test classes selected. JaCoCo XML reports `ShoppingCart` lines **38/38**, branches **30/30**, and methods **8/8**. Refreshed the two retained final XML files and reconciled current-status documentation. The final changed-file list and diff check are reported in this turn's final response. No production code, original tests, discount behavior, or Persian report was changed.
+
+**Assistant self-check / critique:** These are postimplementation regression tests, not a new RED/GREEN/REFACTOR cycle or part of the ten preimplementation price-update cases. The first failed Maven attempt produced no test outcome. The successful runs were in the working checkout; no clean-checkout transcript is retained. Full coverage and 28/28 killed mutations do not prove all possible behaviors.
+
+**Owner evaluation and adoption decision:** Pending. No owner evaluation of the completed CX-07 work has been supplied.
+
 ## Remaining interaction requirement
 
-Five real requests are recorded, but CX-02, CX-04, and CX-05 still have pending evaluations. At least seven further genuine exchanges are needed to reach 12, and pending evaluations must be completed from actual owner feedback. Do not invent exchanges or decisions.
+Seven real requests are recorded, but CX-02, CX-04, CX-05, CX-06, and CX-07 lack explicit owner evaluations. At least five further genuine exchanges are needed to reach 12, and pending evaluations must be completed from actual owner feedback. Do not invent exchanges or decisions.
