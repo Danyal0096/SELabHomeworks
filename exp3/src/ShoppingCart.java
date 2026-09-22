@@ -6,7 +6,14 @@ public class ShoppingCart {
 
     private Map<String, Double> items = new HashMap<>();
 
+    
     public void addItem(String name, double price) {
+        if (!Double.isFinite(price) || price < 0) {
+            throw new IllegalArgumentException(
+                "Item price must be finite and non-negative"
+            );
+        }
+
         items.put(name, price);
     }
 
@@ -27,7 +34,7 @@ public class ShoppingCart {
 
         return total.doubleValue();
     }
-    
+
     public double getTotalWithDiscount() {
         double total = getTotal();
         if (total >= 100) {
