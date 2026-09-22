@@ -1,29 +1,48 @@
-# Software Engineering Lab — Experiment 3
+# Software Engineering Lab — Experiment 3: Test-Driven Development
 
-The cart and tests are under `src/` and `Test/`; `pom.xml` configures both directories. The current implementation includes three owner-approved defect corrections, `updateItemPrice(String,double)`, and a configurable item-capacity limit. A detached clean checkout at `3d7f3bf` passed **43 tests** and killed **28 of 28 generated ShoppingCart mutations**. Its concise command and result record is in `evidence/final-verification/clean-checkout-cx08.txt`.
+**Status: Completed and merged into `main` via [PR #21](https://github.com/Danyal0096/SELabHomeworks/pull/21).**
 
-## Build and evidence
+This experiment develops a Java shopping cart through regression tests and documented RED/GREEN steps, then evaluates the test suite with JaCoCo and PIT. The [final Persian report](docs/report-fa.md) contains the detailed analysis and results.
 
-From `exp3/` with JDK 17+ and Maven:
+## Implementation
+
+The original four active tests were preserved. The three supplied `updateItemPrice` tests were uncommented, and additional tests were written in separate classes.
+
+- **Three investigated defects:** decimal-total precision, acceptance of invalid prices, and acceptance of null or blank item names. The fixes use `BigDecimal` when summing prices and validate input before modifying cart state. The [bug analysis](docs/bug-analysis.md) links each defect to its RED/GREEN evidence and commits.
+- **Price updates:** `updateItemPrice(String, double)` updates an existing item's price without changing the distinct-item count, returns `false` for an absent item, accepts zero, and rejects invalid names and negative or non-finite prices. Ten cases existed before implementation; later tests strengthened validation coverage.
+- **Configurable capacity:** `ShoppingCart(int maxItems)` limits the number of distinct item names. A full cart rejects a new name but permits replacement of an existing item; removing an item frees a slot. The no-argument constructor retains the original practical default.
+- **Advanced tests:** parameterized capacity cases, exception and invalid-input cases, and a multistep add/update/remove scenario. See the [TDD log](docs/tdd-log.md) and [feature contracts](docs/feature-contracts.md) for the actual development sequence.
+
+**Discount-boundary note:** The original source and supplied test apply the 10% discount when the subtotal is **at least 100**. That original behavior was preserved rather than changing the supplied test; the [report](docs/report-fa.md) explains the difference from the handout's boundary wording.
+
+## Run the project
+
+Requirements: **JDK 17 or newer** and **Apache Maven**. The Maven compiler targets Java 17; the independently verified run used Temurin Java 25.0.4.1 and Maven 3.9.16 on Windows 11.
+
+From `exp3/`:
 
 ```powershell
 mvn -B clean verify
 mvn -B org.pitest:pitest-maven:1.19.4:mutationCoverage
 ```
 
-The POM targets Java 17, uses JUnit 5.8.1, JaCoCo 0.8.14, and PIT 1.19.4. Maven writes Surefire reports under `target/surefire-reports/`, JaCoCo under `target/site/jacoco/`, and PIT under `target/pit-reports/`. Retained baseline logs and XML are in `evidence/baseline/`; the final JaCoCo and PIT XML are in `evidence/final-verification/`. See `docs/coverage-mutation.md` for scope, denominators, and test-selection differences.
+`pom.xml` configures the existing `src/` and `Test/` directories, JUnit Jupiter 5.8.1, JaCoCo 0.8.14, and PIT 1.19.4. Generated test reports appear under `target/surefire-reports/`, JaCoCo under `target/site/jacoco/`, and PIT under `target/pit-reports/`.
 
-The original ZIP contained three production classes and one test class. `docs/source-audit.md` records its provenance and an earlier Maven-style Git snapshot. The present checkout uses the original `src/` and `Test/` layout through explicit POM settings. The original four active tests remain; only the three supplied update-price tests were uncommented in `Test/ShoppingCartTest.java`. New tests are separate classes.
+## Verified results
 
-## Current behavior and history
+The committed [clean-checkout verification record](evidence/final-verification/clean-checkout-cx08.txt) reports that both commands succeeded on executable commit [`3d7f3bf`](https://github.com/Danyal0096/SELabHomeworks/commit/3d7f3bf9d6fccb937e77cb7b2a95a6862080fd3f): **43 tests passed, 0 failures, 0 errors, 0 skipped**; PIT killed **28/28 mutations generated for `ShoppingCart`**.
 
-- `ShoppingCart` rejects null/blank names and negative/non-finite prices, accumulates totals with `BigDecimal`, and retains the original discount rule of 10% when subtotal is **at least** 100.
-- `updateItemPrice(String,double)` returns `true` for an existing name and `false` for an absent name; it validates input before changing cart state.
-- `ShoppingCart(int maxItems)` sets a positive limit on distinct names. A full cart rejects a new name but permits replacement of an existing name; the no-argument constructor preserves the original practical default.
-- `docs/bug-analysis.md` and `docs/tdd-log.md` identify the actual RED/GREEN commits and saved test-class reports. Ten update-price cases existed before implementation; two return-value tests were added with GREEN. No separate refactor stage is claimed.
+| `ShoppingCart` metric | Baseline | Final |
+| --- | ---: | ---: |
+| JaCoCo line coverage | 16/19 (84.21%) | 38/38 (100%) |
+| JaCoCo branch coverage | 4/6 (66.67%) | 30/30 (100%) |
+| JaCoCo method coverage | 6/7 (85.71%) | 8/8 (100%) |
+| PIT mutations killed | 9/11 (81.82%) | 28/28 (100%) |
 
-The original experiment handout excludes a subtotal of exactly 100 from the discount; the supplied test and original source discount at 100. The owner explicitly chose to preserve the original behavior, so this is a **known handout deviation**. The handout also requires public Hamgit submission; the owner chose the existing [GitHub repository](https://github.com/Danyal0096/SELabHomeworks) instead. A GitHub submission must **not** be described as handout-compliant on that point.
+These are **class-scoped** measurements. The implementation and selected PIT tests changed between baseline and final runs, so the mutation percentages are not a like-for-like comparison of identical mutants. See the [coverage and mutation analysis](docs/coverage-mutation.md) and retained [baseline](evidence/baseline/) and [final](evidence/final-verification/) XML files.
 
-## Submission status
+## Report and development evidence
 
-`docs/report-fa.md` contains the reconciled Persian RTL report. `docs/codex-interactions.md` records 12 genuine exchanges, meeting the handout's numerical minimum; unavailable full transcripts and qualitative owner evaluations remain identified rather than reconstructed. The CX-08 clean-checkout record includes the revision, Java/Maven versions, commands, exit codes, and test/metric results, but not full console output. No pull-request identifier or final-delivery evidence is retained yet.
+The [Persian final report](docs/report-fa.md) documents the baseline, three defect investigations, two features, edge cases, measurements, and reproduction instructions. The [Codex interaction register](docs/codex-interactions.md) records **12 genuine interactions**; where full historical transcripts or qualitative evaluations were unavailable, it identifies those limitations instead of inventing them. RED/GREEN commits and saved test-class results are indexed in the [TDD log](docs/tdd-log.md) and [evidence index](evidence/README.md).
+
+The final verification and documentation were merged into the public repository through [PR #21 — Exp3 final verification](https://github.com/Danyal0096/SELabHomeworks/pull/21). The clean-checkout result applies to the specified executable commit; the later changes culminating in that PR finalized documentation and evidence.
