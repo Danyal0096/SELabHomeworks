@@ -1,47 +1,29 @@
-# Software Engineering Lab — Experiment 3: TDD
+# Software Engineering Lab — Experiment 3
 
-**Status (2026-09-22): base project acquired, files compared to GitHub `main`, original production classes compiled in an independent Java 21 environment; Maven/JUnit/JaCoCo/PIT baseline not yet run.** This README documents initialization, not completed assignment results.
+The cart and tests are under `src/` and `Test/`; `pom.xml` configures both directories. The current implementation includes three owner-approved defect corrections, `updateItemPrice(String,double)`, and a configurable item-capacity limit. A detached clean checkout at `3d7f3bf` passed **43 tests** and killed **28 of 28 generated ShoppingCart mutations**. Its concise command and result record is in `evidence/final-verification/clean-checkout-cx08.txt`.
 
-## Provenance and preservation
+## Build and evidence
 
-- Required course base: https://hamgit.ir/sqrlab-public/base-project-for-tdd-shoppingcart
-- Uploaded source snapshot: `base-project-for-tdd-shoppingcart-main.zip` supplied by student (upstream commit SHA **not supplied**).
-- At GitHub `main` commit `81fa448bd36f4fc9f2fd4fe4eac71539ea257f37`, the four moved Java files match the uploaded source **byte-for-byte**; see `docs/source-audit.md`.
-- Original layout: `src/{Item,Main,ShoppingCart}.java` and `Test/ShoppingCartTest.java` as an IntelliJ module (JDK 17, JUnit 5.8.1). Current repository layout: `src/main/java/` and `src/test/java/` respectively, which preserves file contents and supports Maven.
-- Do **not** edit the original four active tests. Only uncomment the three existing feature tests at the prescribed TDD step; write all other tests separately.
-
-## Run on Windows / VS Code
-
-From the existing `SELabHomeworks/` checkout:
+From `exp3/` with JDK 17+ and Maven:
 
 ```powershell
-cd exp3
-java -version
-mvn -version
 mvn -B clean verify
 mvn -B org.pitest:pitest-maven:1.19.4:mutationCoverage
 ```
 
-`mvn -B clean verify` runs JUnit and produces JaCoCo reports at `target/site/jacoco/` (HTML + `jacoco.xml`); PIT writes `target/pit-reports/`. **These commands are configured, not yet verified in this environment.** A separate optional evidence-capture script is provided:
+The POM targets Java 17, uses JUnit 5.8.1, JaCoCo 0.8.14, and PIT 1.19.4. Maven writes Surefire reports under `target/surefire-reports/`, JaCoCo under `target/site/jacoco/`, and PIT under `target/pit-reports/`. Retained baseline logs and XML are in `evidence/baseline/`; the final JaCoCo and PIT XML are in `evidence/final-verification/`. See `docs/coverage-mutation.md` for scope, denominators, and test-selection differences.
 
-```powershell
-pwsh -File .\scripts\capture-baseline.ps1 -WithMutation
-# For Windows PowerShell, use: powershell -File .\scripts\capture-baseline.ps1 -WithMutation
-```
+The original ZIP contained three production classes and one test class. `docs/source-audit.md` records its provenance and an earlier Maven-style Git snapshot. The present checkout uses the original `src/` and `Test/` layout through explicit POM settings. The original four active tests remain; only the three supplied update-price tests were uncommented in `Test/ShoppingCartTest.java`. New tests are separate classes.
 
-JDK 17+ and Maven are required. The provided IntelliJ module targets 17 and the POM compiles with `--release 17`; running Maven on JDK 25 is intended to be supported. JaCoCo 0.8.14 officially supports Java 25. If PIT or Maven shows an error, preserve the **actual** log before adjusting configuration. Java / JUnit / Maven / PIT success cannot be inferred from compiling production classes alone.
+## Current behavior and history
 
-## Read before changing code
+- `ShoppingCart` rejects null/blank names and negative/non-finite prices, accumulates totals with `BigDecimal`, and retains the original discount rule of 10% when subtotal is **at least** 100.
+- `updateItemPrice(String,double)` returns `true` for an existing name and `false` for an absent name; it validates input before changing cart state.
+- `ShoppingCart(int maxItems)` sets a positive limit on distinct names. A full cart rejects a new name but permits replacement of an existing name; the no-argument constructor preserves the original practical default.
+- `docs/bug-analysis.md` and `docs/tdd-log.md` identify the actual RED/GREEN commits and saved test-class reports. Ten update-price cases existed before implementation; two return-value tests were added with GREEN. No separate refactor stage is claimed.
 
-1. `docs/source-audit.md` — the actual source, original tests, code-level observations, and GitHub comparison.
-2. `docs/ta-clarifications.md` — the **blocking** contradiction: test expects a 10% discount at exactly 100, while the handout explicitly forbids it. Do not secretly change/remove/disable that test.
-3. `docs/baseline.md` — verified observations and still-pending test/coverage/mutation measurements.
-4. `docs/test-plan.md` + `docs/feature-contracts.md` — proposed tests vs. decisions requiring explicit contract choices.
-5. `docs/tdd-log.md`, `docs/codex-interactions.md`, `docs/bug-analysis.md` — record genuine Red/Green/Refactor stages and at least 12 *real* Codex interactions, never invent evidence.
-6. `docs/submission-checklist.md` — handout requires a **public Hamgit** repository; the GitHub course repository alone is not the required submission.
+The original experiment handout excludes a subtotal of exactly 100 from the discount; the supplied test and original source discount at 100. The owner explicitly chose to preserve the original behavior, so this is a **known handout deviation**. The handout also requires public Hamgit submission; the owner chose the existing [GitHub repository](https://github.com/Danyal0096/SELabHomeworks) instead. A GitHub submission must **not** be described as handout-compliant on that point.
 
-## TDD order
+## Submission status
 
-Establish and commit original baseline → capture original JaCoCo and PIT → characterize and test three **genuinely independent** defects → prove each Red, implement minimal Green, refactor → uncomment 3 supplied update tests + write at least 5 more meaningful tests before implementing the feature → implement second feature through TDD → rerun metrics → Persian report + Hamgit submission.
-
-**Known inconsistency:** `updateItemPrice(String,int)` already exists as an empty stub, while the handout specifies `updateItemPrice(String,double)`; the three commented calls use integer literals and are therefore compilable with the stub. Their observed failure needs an actual JUnit run and should not be described as a missing-method compilation error.
+`docs/report-fa.md` contains the reconciled Persian RTL report. `docs/codex-interactions.md` records 12 genuine exchanges, meeting the handout's numerical minimum; unavailable full transcripts and qualitative owner evaluations remain identified rather than reconstructed. The CX-08 clean-checkout record includes the revision, Java/Maven versions, commands, exit codes, and test/metric results, but not full console output. No pull-request identifier or final-delivery evidence is retained yet.

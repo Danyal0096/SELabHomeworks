@@ -1,58 +1,23 @@
-# Baseline — source audit completed; executable JUnit/JaCoCo/PIT
+# Baseline — original ShoppingCart before defect and feature changes
 
-**Source of truth:** uploaded `base-project-for-tdd-shoppingcart-main.zip`, compared against GitHub `main` commit `81fa448bd36f4fc9f2fd4fe4eac71539ea257f37` on 2026-09-22. See `source-audit.md` for exact file hashes, API architecture, all original test names, and commented tests.
+The unmodified-source baseline was captured before the first defect RED commit `06eb6c4` and retained in commit `f074fb2`. The source provenance and original file hashes are in `source-audit.md`. The original ZIP's upstream commit and license remain unverified; the GitHub snapshot at `81fa448bd36f4fc9f2fd4fe4eac71539ea257f37` is a separately compared copy.
 
-## Environment and provenance
+## Executed baseline
 
-| Field | Current verified status |
-| --- | --- |
-| Required base URL | https://hamgit.ir/sqrlab-public/base-project-for-tdd-shoppingcart (from handout) |
-| Student-supplied archive | Uploaded ZIP inspected on 2026-09-22 |
-| Upstream Hamgit commit / license | Not supplied in ZIP; not verified |
-| GitHub integration | Four moved Java files match ZIP byte-for-byte at `main` commit `81fa448bd36f4fc9f2fd4fe4eac71539ea257f37` |
-| Original project build metadata | IntelliJ `.iml` + `.idea`; Java 17, JUnit 5.8.1 |
-| Reproducible Maven build | Proposed `exp3/pom.xml` in initialization overlay; not yet executed |
-| Local sandbox observation | OpenJDK 21.0.11, production `javac` passed; JUnit/Maven unavailable |
-| Student environment | Previously used Java 25 / Maven; versions and results for **this experiment** not yet verified |
+- Environment: Windows 11, Eclipse Adoptium Java 25.0.4.1, Maven 3.9.16; see `evidence/baseline/java-version.txt` and `maven-version.txt`.
+- `mvn -B clean verify` exited 0. Its retained console log records **4 tests, 0 failures, 0 errors, 0 skipped**, and `BUILD SUCCESS`; see `evidence/baseline/maven-clean-verify.txt` and `exit-codes.txt`.
+- `mvn -B org.pitest:pitest-maven:1.19.4:mutationCoverage` exited 0; see `evidence/baseline/pitest.txt` and `exit-codes.txt`.
+- The four active tests were `testAddItem`, `testRemoveItem`, `testDiscountAtBoundary_WRONG`, and `testDiscountAboveThreshold`. The three supplied `updateItemPrice` tests were still commented out at baseline and were uncommented later in `a35395e`.
 
-## Original tests (four active, three commented)
+| Metric for `ShoppingCart` | Baseline | Retained source |
+| --- | ---: | --- |
+| JaCoCo lines | 16/19 (84.21%) | `evidence/baseline/jacoco.xml` |
+| JaCoCo branches | 4/6 (66.67%) | `evidence/baseline/jacoco.xml` |
+| JaCoCo methods | 6/7 (85.71%) | `evidence/baseline/jacoco.xml` |
+| PIT mutations | 9 killed / 11 generated (81.82%); 2 no coverage, 0 survived | `evidence/baseline/mutations.xml` |
 
-| Test | Tested behavior | JUnit result |
-| --- | --- | --- |
-| `testAddItem` | one item / count / subtotal | Not run |
-| `testRemoveItem` | removal existing item | Not run |
-| `testDiscountAtBoundary_WRONG` | discounts subtotal of exactly 100 | Not run; conflicts with handout |
-| `testDiscountAboveThreshold` | 120 → 108 | Not run |
+PIT targeted `ShoppingCart` and selected the original `ShoppingCartTest*` class. Its two no-coverage mutants were the absent-item return in `removeItem` and the undiscounted return in `getTotalWithDiscount`. See `docs/coverage-mutation.md` for the final comparison and changed test selection.
 
-Three commented tests: `testUpdateItemPrice_ShouldChangePrice`, `testUpdateItemPrice_ShouldNotChangeCount`, `testUpdateItemPrice_ItemNotFound_ShouldDoNothing`. **Leave commented during baseline.**
+## Original behavior and later decision
 
-## Observations and limitations
-
-- Internal storage uses `HashMap<String,Double>`; adding an existing name overwrites its price. Item count is distinct keys, not quantity.
-- `removeItem` already returns false on absent keys: not a demonstrated defect.
-- `getTotalWithDiscount` uses `>= 100`, while handout requires `> 100`. Original test also expects the opposite; see `ta-clarifications.md`.
-- `updateItemPrice(String,int)` is empty; handout requests `(String,double)`. Do not claim a missing method or unconditional compilation failure.
-- `Item` exists but `ShoppingCart` does not use that class internally.
-- `Main` contains IntelliJ-generated demo code, not a cart scenario.
-
-## Execution gate
-
-Run from `exp3/` **before any production or original-test edits**, preserving all logs and exit codes:
-
-```powershell
-mvn -B clean verify
-mvn -B org.pitest:pitest-maven:1.19.4:mutationCoverage
-```
-
-Optional capture helper: `powershell -File .\scripts\capture-baseline.ps1 -WithMutation`. Inspect `target/surefire-reports/`, `target/site/jacoco/`, and `target/pit-reports/`; record exact numbers in `coverage-mutation.md` and observed results here.
-
-| Required metric | Verified baseline |
-| --- | --- |
-| Original JUnit tests | 4 passed, 0 failed, 0 errors, 0 skipped |
-| JaCoCo line coverage — ShoppingCart | 16/19 (84.21%) |
-| JaCoCo branch coverage — ShoppingCart | 4/6 (66.67%) |
-| JaCoCo method coverage — ShoppingCart | 6/7 (85.71%) |
-| PIT mutation score — ShoppingCart | 9/11 (81.82%) |
-| PIT mutation outcomes | 9 killed, 2 no coverage, 0 survived |
-
-This static audit must **not** be passed off as the baseline test execution. Keep original source unchanged until baseline evidence exists.
+The baseline cart used a `HashMap<String,Double>`: duplicate names replaced prices, the count was distinct names, and removing an absent name returned `false`. It accumulated totals with `double` and contained an empty `updateItemPrice(String,int)` stub. Its discount applied at `total >= 100`; the original boundary test expected 90 for a total of 100. The handout excludes exactly 100, but the owner explicitly chose to preserve the original source and supplied test behavior. This is a documented handout deviation, not one of the three investigated defects.

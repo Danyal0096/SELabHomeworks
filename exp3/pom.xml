@@ -60,7 +60,7 @@
                 <configuration>
                     <!-- Restrict mutation to the assignment's system under test. -->
                     <targetClasses><param>ShoppingCart</param></targetClasses>
-                    <targetTests><param>ShoppingCartTest*</param></targetTests>
+                    <targetTests><param>ShoppingCart*Test</param></targetTests>
                     <timestampedReports>false</timestampedReports>
                     <outputFormats><param>HTML</param><param>XML</param></outputFormats>
                 </configuration>
