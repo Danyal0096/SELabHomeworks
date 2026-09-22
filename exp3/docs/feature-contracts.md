@@ -2,6 +2,8 @@
 
 > **These are proposed questions and test scenarios, not established implementation facts.** Consult the actual three provided tests and source before fixing return values, exception types, duplicate-name semantics, or constructor shape.
 
+> **Source-inspection update (2026-09-22):** Original cart uses `HashMap<String,Double>`; duplicate names overwrite. Its update method is an empty `void updateItemPrice(String,int)` stub, not the handout's `(String,double)`. The original missing-item test expects no exception and unchanged total, whereas the handout requests explicit failure. One possible compatible contract is `boolean updateItemPrice(String,double)` returning false for absence, if the TA permits this return type. All invalid-input and duplicate policies are still **unapproved design choices**. See `source-audit.md` and `ta-clarifications.md`.
+
 ## Feature 1: `updateItemPrice(String itemName, double newPrice)`
 
 Handout-required core contract: update the price of an existing item while preserving item count and overall cart structure. A nonexistent item must have an explicit, testable failure with **no side effects**. Specify invalid null/empty names and zero/negative prices *before implementing*. Verify that totals and the rule of 10% off only when subtotal **strictly exceeds 100** respond correctly and that discount does not permanently change base subtotal.
