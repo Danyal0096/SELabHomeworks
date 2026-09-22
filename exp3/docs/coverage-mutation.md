@@ -16,11 +16,11 @@
 
 | Measure | Baseline | Final | Notes / report |
 | --- | --- | --- | --- |
-| JaCoCo line coverage — ShoppingCart | Not measured | Not measured | TODO |
-| JaCoCo branch coverage — ShoppingCart | Not measured | Not measured | TODO |
-| JaCoCo method coverage — ShoppingCart | Not measured | Not measured | TODO |
-| PIT mutation score | Not measured | Not measured | TODO |
-| PIT killed / survived / no coverage / other | Not measured | Not measured | TODO |
+| JaCoCo line coverage — ShoppingCart | 16/19 (84.21%) | Not measured | `evidence/baseline/jacoco.xml` |
+| JaCoCo branch coverage — ShoppingCart | 4/6 (66.67%) | Not measured | `evidence/baseline/jacoco.xml` |
+| JaCoCo method coverage — ShoppingCart | 6/7 (85.71%) | Not measured | `evidence/baseline/jacoco.xml` |
+| PIT mutation score — ShoppingCart | 9/11 (81.82%) | Not measured | `evidence/baseline/mutations.xml` |
+| PIT killed / survived / no coverage | 9 / 0 / 2 | Not measured | 11 mutations generated |
 
 Verify the denominator/target-scope remains comparable. Different sets of executable classes/mutants across versions can limit direct score interpretation. If PIT baseline fails, record exact failure rather than setting it to 0%.
 

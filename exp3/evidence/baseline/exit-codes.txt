@@ -1,0 +1,2 @@
+﻿mvn -B clean verify exit code: 0
+PIT exit code: 0

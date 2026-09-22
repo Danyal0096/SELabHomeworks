@@ -21,6 +21,8 @@
         </dependency>
     </dependencies>
     <build>
+        <sourceDirectory>src</sourceDirectory>
+        <testSourceDirectory>Test</testSourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -33,7 +35,6 @@
                 <version>3.5.3</version>
                 <configuration>
                     <useModulePath>false</useModulePath>
-                    <argLine>@{argLine}</argLine>
                 </configuration>
             </plugin>
             <plugin>

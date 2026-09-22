@@ -1,4 +1,4 @@
-# Baseline — source audit completed; executable JUnit/JaCoCo/PIT pending
+# Baseline — source audit completed; executable JUnit/JaCoCo/PIT
 
 **Source of truth:** uploaded `base-project-for-tdd-shoppingcart-main.zip`, compared against GitHub `main` commit `81fa448bd36f4fc9f2fd4fe4eac71539ea257f37` on 2026-09-22. See `source-audit.md` for exact file hashes, API architecture, all original test names, and commented tests.
 
@@ -35,7 +35,7 @@ Three commented tests: `testUpdateItemPrice_ShouldChangePrice`, `testUpdateItemP
 - `Item` exists but `ShoppingCart` does not use that class internally.
 - `Main` contains IntelliJ-generated demo code, not a cart scenario.
 
-## Execution gate — pending on student machine / CI
+## Execution gate
 
 Run from `exp3/` **before any production or original-test edits**, preserving all logs and exit codes:
 
@@ -46,12 +46,13 @@ mvn -B org.pitest:pitest-maven:1.19.4:mutationCoverage
 
 Optional capture helper: `powershell -File .\scripts\capture-baseline.ps1 -WithMutation`. Inspect `target/surefire-reports/`, `target/site/jacoco/`, and `target/pit-reports/`; record exact numbers in `coverage-mutation.md` and observed results here.
 
-| Required metric | Result |
+| Required metric | Verified baseline |
 | --- | --- |
-| Original JUnit pass / fail count | **Not measured** |
-| JaCoCo line coverage (ShoppingCart) | **Not measured** |
-| JaCoCo branch coverage (ShoppingCart) | **Not measured** |
-| JaCoCo method coverage (ShoppingCart) | **Not measured** |
-| PIT mutation score (ShoppingCart) | **Not measured** |
+| Original JUnit tests | 4 passed, 0 failed, 0 errors, 0 skipped |
+| JaCoCo line coverage — ShoppingCart | 16/19 (84.21%) |
+| JaCoCo branch coverage — ShoppingCart | 4/6 (66.67%) |
+| JaCoCo method coverage — ShoppingCart | 6/7 (85.71%) |
+| PIT mutation score — ShoppingCart | 9/11 (81.82%) |
+| PIT mutation outcomes | 9 killed, 2 no coverage, 0 survived |
 
 This static audit must **not** be passed off as the baseline test execution. Keep original source unchanged until baseline evidence exists.

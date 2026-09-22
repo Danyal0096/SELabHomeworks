@@ -14,11 +14,11 @@ if (-not (Get-Command java -ErrorAction SilentlyContinue)) {
     Write-Error 'Java not found.'
     exit 127
 }
-$src = Join-Path $project 'src/test/java/ShoppingCartTest.java'
+$src = Join-Path $project 'Test/ShoppingCartTest.java'
 Get-FileHash -Path $src -Algorithm SHA256 | Format-List | Out-File -Encoding utf8 (Join-Path $evidence 'original-test-sha256.txt')
-& java -version 2>&1 | Out-File -Encoding utf8 (Join-Path $evidence 'java-version.txt')
+cmd /c "java -version 2>&1" | Out-File -Encoding utf8 (Join-Path $evidence 'java-version.txt')
 & mvn -version 2>&1 | Out-File -Encoding utf8 (Join-Path $evidence 'maven-version.txt')
-& mvn -B clean verify 2>&1 | Tee-Object -FilePath (Join-Path $evidence 'maven-clean-verify.txt')
+cmd /c "mvn -B clean verify 2>&1" | Tee-Object -FilePath (Join-Path $evidence 'maven-clean-verify.txt')
 $testExit = $LASTEXITCODE
 "mvn -B clean verify exit code: $testExit" | Out-File -Encoding utf8 (Join-Path $evidence 'exit-codes.txt')
 if ($testExit -eq 0) {
@@ -30,7 +30,7 @@ if ($testExit -eq 0) {
     }
 }
 if ($WithMutation -and $testExit -eq 0) {
-    & mvn -B org.pitest:pitest-maven:1.19.4:mutationCoverage 2>&1 | Tee-Object -FilePath (Join-Path $evidence 'pitest.txt')
+    cmd /c "mvn -B org.pitest:pitest-maven:1.19.4:mutationCoverage 2>&1" | Tee-Object -FilePath (Join-Path $evidence 'pitest.txt')
     $pitExit = $LASTEXITCODE
     "PIT exit code: $pitExit" | Add-Content -Encoding utf8 (Join-Path $evidence 'exit-codes.txt')
     $mutations = Join-Path $project 'target/pit-reports/mutations.xml'
