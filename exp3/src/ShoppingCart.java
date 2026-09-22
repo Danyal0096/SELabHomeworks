@@ -6,8 +6,8 @@ public class ShoppingCart {
 
     private Map<String, Double> items = new HashMap<>();
 
-    
-    
+
+
     public void addItem(String name, double price) {
         if (name == null || name.isBlank()) {
             throw new IllegalArgumentException(
