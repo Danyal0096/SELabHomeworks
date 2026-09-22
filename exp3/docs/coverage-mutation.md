@@ -1,49 +1,26 @@
 # JaCoCo coverage and PIT mutation evaluation
 
-> **Unmeasured:** waiting for the real starter project, build system, and executable tests. No percentages below are asserted.
+The measurements below come from retained XML, scoped to `ShoppingCart`. Baseline was captured before the defect changes (`f074fb2`); final XML was committed in `41e4e87` on `exp3-final-verification`. The original and final code and test sets differ, so percentages describe each revision rather than a fixed set of source lines or mutants.
 
-## Reproduction environment
+| `ShoppingCart` measure | Baseline XML | Final XML |
+| --- | ---: | ---: |
+| JaCoCo lines | 16/19 (84.21%) | 37/38 (97.37%) |
+| JaCoCo branches | 4/6 (66.67%) | 27/30 (90.00%) |
+| JaCoCo methods | 6/7 (85.71%) | 8/8 (100%) |
+| PIT killed / generated | 9/11 (81.82%) | 28/28 (100%) |
+| PIT no coverage / survived | 2 / 0 | 0 / 0 |
 
-- Project revision / branch: TODO
-- Java and Maven/Gradle version: TODO
-- JUnit / JaCoCo / PIT versions: TODO
-- Target classes (at least `ShoppingCart`): TODO
-- Test selection and excluded generated/infrastructure code: TODO
-- Coverage/mutation commands: TODO (extract from actual plugin configuration)
-- Raw report and terminal transcript paths: TODO
+Sources: `evidence/baseline/jacoco.xml`, `evidence/baseline/mutations.xml`, `evidence/final-verification/jacoco.xml`, and `evidence/final-verification/mutations.xml`. The final XML files match the local generated `target` copies byte-for-byte. The final local Surefire XML totals **36 tests, 0 failures, 0 errors, 0 skipped**; a final clean-checkout console transcript and process exit codes are not retained.
 
-## Baseline vs final (same target class and comparable configurations)
+## Scope and interpretation
 
-| Measure | Baseline | Final | Notes / report |
-| --- | --- | --- | --- |
-| JaCoCo line coverage — ShoppingCart | 16/19 (84.21%) | Not measured | `evidence/baseline/jacoco.xml` |
-| JaCoCo branch coverage — ShoppingCart | 4/6 (66.67%) | Not measured | `evidence/baseline/jacoco.xml` |
-| JaCoCo method coverage — ShoppingCart | 6/7 (85.71%) | Not measured | `evidence/baseline/jacoco.xml` |
-| PIT mutation score — ShoppingCart | 9/11 (81.82%) | Not measured | `evidence/baseline/mutations.xml` |
-| PIT killed / survived / no coverage | 9 / 0 / 2 | Not measured | 11 mutations generated |
+- Both PIT runs mutated `ShoppingCart`, but the class grew from 19 to 38 JaCoCo-counted lines and from 6 to 30 branches. The generated mutant denominator therefore changed from 11 to 28.
+- The baseline POM selected `ShoppingCartTest*` for PIT and the log says one test class was sent to the minion. Commit `41e4e87` changed the pattern to `ShoppingCart*Test`, admitting the seven current test classes. The 81.82% and 100% mutation scores are **not** a like-for-like comparison of the same mutants under the same selected tests.
+- JaCoCo's whole-project totals include untested `Item` and `Main`: baseline lines 16/30 and final lines 37/49. Do not label the class-scoped percentages above as whole-project coverage.
+- Baseline PIT's two `NO_COVERAGE` mutants were on the absent-item return in `removeItem` and the undiscounted return in `getTotalWithDiscount`. The final XML has no surviving or no-coverage mutants among those generated; 100% does not mean every input path is tested.
 
-Verify the denominator/target-scope remains comparable. Different sets of executable classes/mutants across versions can limit direct score interpretation. If PIT baseline fails, record exact failure rather than setting it to 0%.
+Final JaCoCo marks the exception body at `src/ShoppingCart.java:81` uncovered, with two missed branches at line 80 and one at line 86. Current update tests exercise a negative price, but not an invalid update name or non-finite update price. This is a direct test-evidence gap, not a demonstrated implementation failure. No per-test attribution of the overall coverage increase is claimed.
 
-## Coverage gaps
+## Reproduction evidence
 
-| Source line or branch | Baseline uncovered? | Final uncovered? | Test added or reason not covered |
-| --- | --- | --- | --- |
-| TODO | TODO | TODO | TODO |
-
-Discuss **which actual test** drove the largest useful increase; do not infer that from a screenshot alone if attribution is uncertain.
-
-## Surviving mutants (actual PIT records only)
-
-| Mutation / location | Why mutant survived | Missing behavioral assertion OR equivalence rationale | Action / test / outcome |
-| --- | --- | --- | --- |
-| TODO | TODO | TODO | TODO |
-
-**Interpretation:** coverage indicates executed code; killing mutants provides some evidence that assertions detect behavior changes. High coverage alone does **not** demonstrate good fault detection. Mutation score is also limited by mutant selection, equivalent mutants, and build/test compatibility. Explain actual important survivors rather than chasing a target percentage the handout does not specify.
-
-## Verification
-
-- [ ] Capture baseline raw JaCoCo report and command or explain actual blocker.
-- [ ] Capture baseline PIT report and command or explain actual blocker.
-- [ ] Capture final line/branch/method metrics with correct target class.
-- [ ] Capture final PIT score and inspect important surviving mutants.
-- [ ] Record reproducible commands and versions.
+The baseline retained `mvn -B clean verify` and `mvn -B org.pitest:pitest-maven:1.19.4:mutationCoverage` console logs, both with exit code 0 in `evidence/baseline/exit-codes.txt`. That environment used Java 25.0.4.1 and Maven 3.9.16; `pom.xml` configures JUnit 5.8.1, JaCoCo 0.8.14, and PIT 1.19.4. The same Maven commands are configured for current verification, but no committed final command transcript or clean-checkout result establishes their latest exit codes. Retain one before making final reproducibility claims.

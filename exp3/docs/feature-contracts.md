@@ -1,44 +1,20 @@
-# Feature behavior contracts — decisions pending source inspection
+# Implemented feature contracts
 
-> **These are proposed questions and test scenarios, not established implementation facts.** Consult the actual three provided tests and source before fixing return values, exception types, duplicate-name semantics, or constructor shape.
+These are the observable contracts in `src/ShoppingCart.java` and the current tests. The three defect contracts were separately approved by the owner and are detailed in `bug-analysis.md`. A separate record of owner approval for the capacity contract before implementation is not retained here.
 
-> **Source-inspection update (2026-09-22):** Original cart uses `HashMap<String,Double>`; duplicate names overwrite. Its update method is an empty `void updateItemPrice(String,int)` stub, not the handout's `(String,double)`. The original missing-item test expects no exception and unchanged total, whereas the handout requests explicit failure. One possible compatible contract is `boolean updateItemPrice(String,double)` returning false for absence, if the TA permits this return type. All invalid-input and duplicate policies are still **unapproved design choices**. See `source-audit.md` and `ta-clarifications.md`.
+## Feature 1 — `updateItemPrice(String,double)`
 
-## Feature 1: `updateItemPrice(String itemName, double newPrice)`
+- On an existing name, return `true`, replace its price, keep the distinct-name count unchanged, and recalculate totals from cart state. On an absent name, return `false` without changing the cart. The return-value tests were added with implementation commit `635ee30`; the original supplied absent-item test checks only an unchanged total.
+- Reject null or blank names and negative or non-finite new prices with `IllegalArgumentException` before changing state. Zero is accepted. Input validation occurs before absent-name lookup, so an invalid price for an absent name throws rather than returning `false`.
+- Duplicate `addItem` names replace one map entry; an update therefore addresses the one stored value for that name. `getTotal()` accumulates decimal representations with `BigDecimal.valueOf` and exposes a `double` result; fractional-cent rounding is unspecified.
+- The original discount behavior remains `total >= 100`. The handout excludes exactly 100, but the owner chose to preserve the original source/test rule. Updating a price changes whether that existing discount applies; it does not permanently alter the base total.
 
-Handout-required core contract: update the price of an existing item while preserving item count and overall cart structure. A nonexistent item must have an explicit, testable failure with **no side effects**. Specify invalid null/empty names and zero/negative prices *before implementing*. Verify that totals and the rule of 10% off only when subtotal **strictly exceeds 100** respond correctly and that discount does not permanently change base subtotal.
+**Test chronology:** `a35395e` uncommented the three supplied tests and added six separate update tests. `614d792` added a decimal update case, producing a retained Maven compilation RED because the old stub accepted only `int`. All **10** cases preceded GREEN `635ee30`; that GREEN also added two return-value tests, which are not counted as preimplementation tests. See `tdd-log.md` and `Test/ShoppingCartUpdatePriceTest.java`.
 
-| Contract decision | Choice and rationale | Evidence from supplied tests/code |
-| --- | --- | --- |
-| Item lookup and duplicate names | TODO | TODO |
-| If name absent: exception/return value | TODO | TODO |
-| `null` / empty name | TODO | TODO |
-| New price zero / negative | TODO | TODO |
-| Precision / rounding policy (`double` signature is prescribed) | TODO | TODO |
-| Success return type / declared exceptions | TODO | TODO |
-| Invariants for count, ordering, subtotal | TODO | TODO |
+## Feature 2 — configurable capacity
 
-**Minimum preimplementation tests:** at least 8 meaningful cases total; identify which three originally commented tests are part of this count and add further tests separately. See `test-plan.md`.
+- `new ShoppingCart(int maxItems)` requires a positive capacity; zero and negative values throw `IllegalArgumentException`. The no-argument constructor uses `Integer.MAX_VALUE` to preserve the original practical default.
+- Capacity counts distinct names (`items.size()`). A new name at capacity throws `IllegalStateException` before mutation. Replacing an existing name is allowed even when full. Removing a name frees one slot.
+- Name and price validation precede the capacity check. Current tests check that a rejected new item leaves count and total unchanged. The capacity rule does not alter `updateItemPrice` or the original discount calculation.
 
-## Feature 2: proposed cart item-capacity limit (handout option B)
-
-**Proposal, not yet selected/implemented:** a maximum allowed number of items and an atomic rejection if an add would exceed it. A positive example is a capacity-3 cart accepting three items and rejecting a fourth without changing any observable cart state. The example `3` is illustrative, not an instructor-mandated constant.
-
-| Contract question | Choice after inspection |
-| --- | --- |
-| How is capacity configured (constructor/setter/constant)? | TODO |
-| Is capacity mandatory or opt-in? Does default retain original behavior? | TODO |
-| Is capacity 0 allowed? Negative capacity? | TODO |
-| Does one duplicate-name addition count as an additional item? | TODO |
-| What exact public API reports rejection? | TODO |
-| What happens after removing an item from a full cart? | TODO |
-| Does rejected addition leave count, subtotal and discount unchanged? | TODO |
-| What is the interaction with invalid prices/names? | TODO |
-
-Only implement this proposal if it fits the actual starter project's design and course interpretation. The handout also permits alternative second business rules such as composable discounts or other validation policies.
-
-## Source vs design decisions
-
-- **Prescribed by handout:** discount applies if subtotal >100, exactly 100 is not discounted; preserve original tests; 3 confirmed bugs; ≥8 update tests; second TDD feature.
-- **To infer or choose after access:** current public methods, duplicate behavior, precise exceptions, capacity API, rounding policy, actual defects.
-- Document unresolved domain ambiguities rather than silently inventing 'correct' behavior.
+`85f8d35` added five capacity tests and the constructor/API scaffold in the RED commit; its saved report shows the missing capacity rejection. `da8cce7` added enforcement in GREEN. Later advanced tests in `349b4f7` and `41e4e87` are postimplementation tests. No separate refactor step is evidenced.

@@ -1,19 +1,13 @@
-# Evidence directory — genuine artifacts only
+# Evidence index
 
-Save **actual** stdout/stderr captures, screenshots, coverage/PIT exports, and final verification output here. These directories currently contain only `.gitkeep` placeholders; no execution evidence has been produced.
+These are retained artifacts, not a claim that every full-suite command or exit code was captured. `docs/tdd-log.md` links each RED/GREEN stage to its commit; `docs/coverage-mutation.md` interprets the measured XML.
 
-## Naming convention
+| Directory | Actual retained evidence |
+| --- | --- |
+| `baseline/` | `maven-clean-verify.txt`, `pitest.txt`, `exit-codes.txt`, Java/Maven versions, original-test hash, original Surefire XML, `jacoco.xml`, `mutations.xml`, and a separate earlier production-only compile observation. |
+| `bugs/` | `bug-01-*`, `bug-02-*`, and `bug-03-*` RED/GREEN Surefire class reports, including focused NaN and null RED reports. These are class-level reports, not full Maven transcripts. |
+| `feature-1-price-update/` | Supplied-test and additional-test RED/GREEN Surefire reports, plus `decimal-update-compile-red.txt` showing the Maven compilation failure before the `double` API existed. A local `decimal-update-red.txt` is currently untracked and is not committed history. |
+| `feature-2/` | `capacity-red.txt` for the selected failing behavior and `capacity-green.txt` for five passing capacity tests. |
+| `final-verification/` | `jacoco.xml` and `mutations.xml` retained in `41e4e87`; the latter records 28 killed of 28 generated `ShoppingCart` mutations. |
 
-Use a sortable name like `2026-09-21_bug-01_red_test-name.txt` or `bug-01_red_<short-commit>.png`, replacing date, test name and revision with the actual observed values. Dates are illustrative, not timestamps of completed tasks. In text logs record the exact command, repository revision, environment and exit code. Prefer terminal text alongside screenshots, not images alone.
-
-## Directories
-
-- `baseline/` — first unmodified build/test result and initial JaCoCo/PIT outputs.
-- `bugs/bug-01/` through `bug-03/` — real Red/Green/regression runs.
-- `feature-1-price-update/` — three uncommented original tests, new tests and TDD evidence.
-- `feature-2/` — behavior contract and real TDD outcomes.
-- `coverage/` — selected initial/final JaCoCo HTML/XML reports or clear links to generated reports.
-- `mutation/` — selected initial/final PIT outputs and survivor references.
-- `final-verification/` — clean-checkout reproducibility run and final pass/fail evidence.
-
-Do not commit binaries/secrets or enormous redundant generated directories indiscriminately; retain selected proof and instructions to regenerate full reports. Do not fabricate evidence, rewrite failing output, or claim a `TODO` file is a test artifact.
+Local `target/surefire-reports/` currently totals 36 passing tests, but no committed final clean-checkout console log or exit-code file is present. The empty placeholder directories under `evidence/` contain no additional measurements. Preserve the distinction between saved reports, local generated output, and owner-supplied observations.

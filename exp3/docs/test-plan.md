@@ -1,8 +1,8 @@
 # Behavior-oriented test plan
 
-**Status:** source/test inventory verified; JUnit result, behavioral choices, and three independently proven bugs still pending. The handout specifies `(String,double)`, whereas starter contains an empty `(String,int)` stub.
+**Historical planning artifact, not current status.** Its unfilled rows and proposed expectations were drafted before the defect and feature work; the exact-100 expectation below was superseded by the owner's decision to preserve original behavior. Use `bug-analysis.md`, `feature-contracts.md`, `tdd-log.md`, and the actual tests for current results. This file is a candidate for later consolidation.
 
-> **Source inspection update (2026-09-22):** Four active original tests: `testAddItem`, `testRemoveItem`, `testDiscountAtBoundary_WRONG`, `testDiscountAboveThreshold`. Three commented tests: `testUpdateItemPrice_ShouldChangePrice`, `testUpdateItemPrice_ShouldNotChangeCount`, `testUpdateItemPrice_ItemNotFound_ShouldDoNothing`. The boundary test contradicts the handout; its expected result is 90 at exactly 100. See `source-audit.md` and `ta-clarifications.md`. JUnit results remain unmeasured.
+> **Source inspection at planning time (2026-09-22):** Four active original tests and three commented update tests were present. The original boundary test expected 90 at a subtotal of 100, contrary to the handout. That behavior was later preserved by owner decision. See `source-audit.md` for the original inventory; the baseline JUnit result is now recorded in `baseline.md`.
 
 ## Original tests (must be preserved)
 

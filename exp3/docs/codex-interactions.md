@@ -1,11 +1,13 @@
 # Codex interaction register — actual exchanges only
 
-**2 interactions recorded toward the required 12.** The quoted passages below are verbatim excerpts from this conversation, explicitly not complete transcripts. The summaries are labeled as summaries. No future interaction is counted in advance.
+**4 real requests recorded toward the required 12; CX-02 and CX-04 still lack owner evaluation.** The quoted passages below are verbatim excerpts from this conversation, not complete transcripts. Summaries are labeled as summaries. A pending evaluation is not an adopted decision.
 
 | ID | Actual topic | Prompt and response | Evaluation and decision | Related evidence |
 | --- | --- | --- | --- | --- |
 | CX-01 | Read-only original-source defect analysis | Verbatim excerpts and faithful summary below | Candidate contracts accepted only after project-owner approval and RED tests | `Test/ShoppingCartPrecisionTest.java`, `Test/ShoppingCartPriceValidationTest.java`, `Test/ShoppingCartNameValidationTest.java`; `evidence/bugs/` |
 | CX-02 | Finalize bug-discovery documentation | Current request and this turn's response summary below | User evaluation pending | These documentation edits; `git diff --check` result to be reported in the final response |
+| CX-03 | Read-only pre-submission audit | Actual excerpts and response summary below | Assistant review and independent handout verification; earlier owner decisions recorded separately | Audit response in this conversation; retained XML and Git history |
+| CX-04 | First documentation cleanup stage | Current request and work summary below | Owner evaluation pending; no outcome claimed | The documentation diff from this turn |
 
 ## CX-01 — Original-source defect analysis
 
@@ -53,7 +55,7 @@ The full prompt also required exact source, exposing sequences, predicted and ex
 >
 > “Do not modify tests, implement features, invent results, or commit anything.”
 
-The full request also named the files and evidence to read, supplied owner-verified milestones, required removal of references to the deleted TA clarification document in edited documentation, and requested `git diff --check` plus a changed-file and gap report. These are excerpts, not a complete prompt transcript.
+The full request also named the files and evidence to read, supplied owner-verified milestones, and requested `git diff --check` plus a changed-file and gap report. These are excerpts, not a complete prompt transcript.
 
 **Assistant response summary, recorded during this turn rather than represented as a verbatim final response:** Inspected the three regression classes, saved RED/GREEN Surefire reports, current source, and `exp3-bug-discovery` history. Corrected the decimal RED hash from the supplied `06b6cd4` to the actual `06eb6c4`; kept the owner's full-suite totals separate from what the class reports alone prove. Completed `docs/bug-analysis.md` and `docs/tdd-log.md`, recorded CX-01 and CX-02 here, and removed trailing spaces from `src/ShoppingCart.java` without changing Java tokens. No tests were edited, no feature was implemented, and no commit was made. The final `git diff --check` result is reported in the assistant's final response for this turn.
 
@@ -61,6 +63,60 @@ The full request also named the files and evidence to read, supplied owner-verif
 
 **User evaluation and adoption decision:** Pending. This entry records the assistant's work and evidence assessment; it does not claim the owner has accepted the documentation or given feedback on this response.
 
+## CX-03 — Read-only pre-submission audit
+
+**Actual user request, verbatim excerpts:**
+
+> “You are auditing Software Engineering Lab Experiment 3 before final submission.”
+>
+> “Your task is READ-ONLY. Do not modify, create, move, or delete files. Do not commit or push anything.”
+>
+> “Identify every actual handout requirement and its current satisfaction status. Distinguish verified, incomplete, and uncertain requirements.”
+>
+> “Classify each documentation file as KEEP, REWRITE, CONSOLIDATE, or DELETE.”
+>
+> “Do not execute the cleanup. Wait for review.”
+
+The complete request also asked for a TDD chronology, baseline/final JaCoCo and PIT comparison, feature-test count, technical findings, a Codex-register audit, and remaining work. These are excerpts, not the full transcript.
+
+**Actual Codex response, verbatim excerpts:**
+
+> “**Scope limit:** I found no original Experiment 3 handout in this checkout.”
+>
+> “Before GREEN `635ee30`, commit `a35395e` had the 3 supplied tests plus **6 additional** cases; `614d792` added a seventh additional decimal case.”
+>
+> “Both tools target `ShoppingCart`, but production code grew.”
+
+**Response summary, not a verbatim transcript:** The audit corroborated 36 passing local Surefire tests and 28/28 killed PIT mutations from retained/local XML, identified the changed code and PIT test-selection denominators, separated ten preimplementation update-price cases from two tests added with GREEN, and noted the constructor scaffold in capacity RED. It classified all documentation files for cleanup and found no confirmed current functional failure. It explicitly left handout-specific claims uncertain because the handout was unavailable. No files were changed.
+
+**Subsequent assistant review and independent handout verification:** The assistant evaluated the audit positively, with corrections to its handout uncertainty. Independent verification established the requirements for at least 12 genuine Codex interactions, exclusion of a subtotal of exactly 100 from the discount, public Hamgit submission, a Persian report, and preservation of the original tests apart from uncommenting the three supplied feature tests. The audit's earlier uncertainty was reasonable while the handout was unavailable in that checkout.
+
+**Project owner's earlier decisions:** The owner had already chosen to retain the original `>=100` discount behavior and to use GitHub despite the handout's public Hamgit requirement. Those decisions are separate from the assistant's later evaluation and verification. No retrospective test or refactor result is inferred from either.
+
+## CX-04 — First documentation cleanup stage
+
+**Actual user request, verbatim excerpts:**
+
+> “We are now authorizing the FIRST STAGE of documentation cleanup.”
+>
+> “Update README.md and AGENTS.md to reflect the actual project structure, implemented features, and current workflow.”
+>
+> “Complete docs/coverage-mutation.md using the retained baseline and final XML reports.”
+>
+> “Record CX-03 using the actual audit request and response.”
+>
+> “Do not modify Java source files, tests, or Maven configuration.”
+>
+> “Do not execute deletions. Wait for review.”
+
+The complete request also identified baseline, feature-contract, TDD, evidence-index, and interaction-register updates; it prohibited historical-evidence and Persian-report changes, commits, pushes, PRs, and new documentation files. These are excerpts, not a complete transcript.
+
+**Assistant response summary recorded during this turn, not a verbatim final answer:** The assistant updated the requested current-state documentation, reconciled metrics with retained XML and commit order, removed stale links, and identified obsolete documents for review without deleting them. The final changed-file list and `git diff --check` result belong to this turn's final response. This summary records work actually performed; it does not claim an owner-approved outcome.
+
+**Assistant self-check / critique:** The original handout is still absent locally, so the handout facts come from the owner's independently verified correction. Saved class reports, local generated Surefire XML, and committed final metric XML have different evidentiary scope. Existing untracked files were left untouched. Any later owner critique of this cleanup must be added from the actual reply.
+
+**Owner evaluation and adoption decision:** Pending. No approval, rejection, or final submission result is claimed.
+
 ## Remaining interaction requirement
 
-Ten additional meaningful, actual interactions still need prompt, response, critique, and adopted/rejected decision. They will be recorded only when they occur; none are represented by placeholders here as completed interactions.
+Four real requests are recorded, but CX-02 and CX-04 still have pending evaluations. At least eight further genuine exchanges are needed to reach 12, and pending evaluations must be completed from actual owner feedback. Do not invent exchanges or decisions.
