@@ -1,0 +1,18 @@
+CX-08 detached clean-checkout verification (2026-09-22, Asia/Tehran)
+
+Source: exp3-final-verification HEAD 3d7f3bf9d6fccb937e77cb7b2a95a6862080fd3f.
+Git worktree add --detach checked out that commit under the system TEMP directory, outside the repository. No working-directory files were copied. The detached worktree reported the same HEAD, no branch, and clean status after the build. All 63 tracked exp3 files were present; none was missing.
+
+Environment:
+- java -version: exit 0; Eclipse Temurin OpenJDK 25.0.4.1+1 LTS.
+- mvn -version: exit 0; Apache Maven 3.9.16 using Java 25.0.4.1 on Windows 11. The sandboxed version command also printed "Access is denied." before the version text; verification commands below ran successfully with filesystem/network access.
+
+Commands run inside the detached checkout's exp3 directory:
+- mvn -B clean verify: exit 0 (BUILD SUCCESS). Surefire: 43 tests, 0 failures, 0 errors, 0 skipped, across 8 test classes. Generated ShoppingCart JaCoCo: lines 38/38, branches 30/30, methods 8/8.
+- mvn -B org.pitest:pitest-maven:1.19.4:mutationCoverage: exit 0 (BUILD SUCCESS). PIT selected 8 test classes; 28 generated mutations, 28 killed, 0 survived, 0 with no coverage.
+
+Generated versus committed evidence/final-verification XML at this HEAD:
+- JaCoCo XML is not byte-identical because the generated session ID and start/dump timestamps differ. Removing only the <sessioninfo> element makes the XML identical; the ShoppingCart counters match exactly.
+- PIT XML is not byte-identical because generated text uses LF and committed text uses CRLF. After normalizing line endings, the files are identical; all 28 mutation identities and KILLED statuses match.
+
+No missing tracked files or build failures were found. This verifies the named committed revision in this Java/Maven environment; it does not establish a cold offline build. The concise record above preserves results and exit codes, not full Maven console output.

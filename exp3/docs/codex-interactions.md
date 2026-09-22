@@ -1,6 +1,6 @@
 # Codex interaction register — actual exchanges only
 
-**7 real requests recorded toward the required 12; CX-02, CX-04, CX-05, CX-06, and CX-07 lack explicit owner evaluations.** The quoted passages below are verbatim excerpts from this conversation, not complete transcripts. Summaries are labeled as summaries. A pending evaluation is not an adopted decision.
+**8 real requests recorded toward the required 12; CX-02 and CX-04 through CX-08 lack explicit owner evaluations.** The quoted passages below are verbatim excerpts from this conversation, not complete transcripts. Summaries are labeled as summaries. A pending evaluation is not an adopted decision.
 
 | ID | Actual topic | Prompt and response | Evaluation and decision | Related evidence |
 | --- | --- | --- | --- | --- |
@@ -8,9 +8,10 @@
 | CX-02 | Finalize bug-discovery documentation | Current request and this turn's response summary below | User evaluation pending | These documentation edits; `git diff --check` result to be reported in the final response |
 | CX-03 | Read-only pre-submission audit | Actual excerpts and response summary below | Assistant review and independent handout verification; earlier owner decisions recorded separately | Audit response in this conversation; retained XML and Git history |
 | CX-04 | First documentation cleanup stage | Request excerpts and work summary below | Owner evaluation pending; cleanup committed as `b3c0217` | `b3c0217` |
-| CX-05 | Second documentation cleanup stage | Current request and work summary below | Owner evaluation pending; no outcome claimed | README submission status and removal of four obsolete planning files |
+| CX-05 | Second documentation cleanup stage | Request excerpts and work summary below | Owner evaluation pending; cleanup committed as `b84030d` | `b84030d` |
 | CX-06 | Read-only review of update-price test gaps | Request and response excerpts below | Recommended cases requested in CX-07; no explicit review evaluation | `Test/`, `src/ShoppingCart.java`, prior final JaCoCo XML |
-| CX-07 | Add focused update validation regressions | Request excerpts and work summary below | Owner evaluation pending | New test class, refreshed final XML, current Maven and PIT output |
+| CX-07 | Add focused update validation regressions | Request excerpts and work summary below | Owner evaluation pending; changes committed as `3d7f3bf` | `3d7f3bf` |
+| CX-08 | Verify committed HEAD in a detached clean checkout | Request and work summaries below | Owner evaluation pending | `evidence/final-verification/clean-checkout-cx08.txt` |
 
 ## CX-01 — Original-source defect analysis
 
@@ -136,7 +137,7 @@ The complete request also identified baseline, feature-contract, TDD, evidence-i
 
 The full request named `roadmap.md`, `commit-plan.md`, `test-plan.md`, and `submission-checklist.md`, required reference repair and a `git diff --check` report, and prohibited changes to Java, tests, Maven configuration, historical evidence, and the Persian report. These are excerpts, not a complete prompt transcript.
 
-**Assistant response summary, recorded during this turn rather than represented as a verbatim final response:** Compared the four planning files with the current README, TDD log, feature contracts, evidence index, coverage report, and Git history. Preserved the outstanding clean-checkout record and report contents in `README.md`, then removed the four obsolete planning files. Checked remaining references and left source, tests, Maven configuration, historical evidence, and the Persian report untouched. The final changed-file list and `git diff --check` result belong to this turn's final response.
+**Assistant response summary, not a verbatim final response:** Compared the four planning files with the current README, TDD log, feature contracts, evidence index, coverage report, and Git history. Preserved the outstanding clean-checkout record and report contents in `README.md`, then removed the four obsolete planning files. Checked remaining references and left source, tests, Maven configuration, historical evidence, and the Persian report untouched. That cleanup was subsequently committed as `b84030d`; the commit does not establish an owner evaluation.
 
 **Assistant self-check / critique:** The deleted test plan listed proposed cases and stale “Not run”/“TODO” fields; none was promoted into a claim of execution. Actual test chronology remained in `tdd-log.md`; at that stage, `coverage-mutation.md` identified the uncovered update-validation paths later tested in CX-07. The deleted checklist's Hamgit item cannot be marked complete under the owner's GitHub decision; the deviation remains explicit in `README.md`. Existing untracked files were left untouched.
 
@@ -180,12 +181,22 @@ The full request also asked about missed JaCoCo branches, unchanged state after 
 
 The full request also required both named Maven commands, actual JUnit/JaCoCo/PIT results, refreshed final XML after successful runs, this interaction record, and `git diff --check`. These are excerpts, not a complete prompt transcript.
 
-**Assistant response summary, recorded during this turn rather than represented as a verbatim final response:** Added `Test/ShoppingCartUpdateValidationTest.java` with seven postimplementation cases: three invalid names, three non-finite prices, and one invalid price for an absent item. The initial sandboxed `mvn -B clean verify` stopped during JaCoCo plugin resolution because network access was denied; the network-enabled rerun exited 0 with **43 tests, 0 failures, 0 errors, 0 skipped**. `mvn -B org.pitest:pitest-maven:1.19.4:mutationCoverage` exited 0 with **28/28 killed** and eight test classes selected. JaCoCo XML reports `ShoppingCart` lines **38/38**, branches **30/30**, and methods **8/8**. Refreshed the two retained final XML files and reconciled current-status documentation. The final changed-file list and diff check are reported in this turn's final response. No production code, original tests, discount behavior, or Persian report was changed.
+**Assistant response summary, not a verbatim final response:** Added `Test/ShoppingCartUpdateValidationTest.java` with seven postimplementation cases: three invalid names, three non-finite prices, and one invalid price for an absent item. The initial sandboxed `mvn -B clean verify` stopped during JaCoCo plugin resolution because network access was denied; the network-enabled rerun exited 0 with **43 tests, 0 failures, 0 errors, 0 skipped**. `mvn -B org.pitest:pitest-maven:1.19.4:mutationCoverage` exited 0 with **28/28 killed** and eight test classes selected. JaCoCo XML reports `ShoppingCart` lines **38/38**, branches **30/30**, and methods **8/8**. Refreshed the two retained final XML files and reconciled current-status documentation. These changes were subsequently committed as `3d7f3bf`; the commit does not establish an owner evaluation. No production code, original tests, discount behavior, or Persian report was changed.
 
-**Assistant self-check / critique:** These are postimplementation regression tests, not a new RED/GREEN/REFACTOR cycle or part of the ten preimplementation price-update cases. The first failed Maven attempt produced no test outcome. The successful runs were in the working checkout; no clean-checkout transcript is retained. Full coverage and 28/28 killed mutations do not prove all possible behaviors.
+**Assistant self-check / critique:** These are postimplementation regression tests, not a new RED/GREEN/REFACTOR cycle or part of the ten preimplementation price-update cases. The first failed Maven attempt produced no test outcome. At the time of CX-07, the successful runs were only in the working checkout; CX-08 later added a clean-checkout record. Full coverage and 28/28 killed mutations do not prove all possible behaviors.
 
 **Owner evaluation and adoption decision:** Pending. No owner evaluation of the completed CX-07 work has been supplied.
 
+## CX-08 — Detached clean-checkout verification
+
+**Actual user request, faithful summary rather than a verbatim transcript:** The user asked for branch, HEAD, and status confirmation; a temporary detached Git worktree at current HEAD outside the repository; Java and Maven versions; `mvn -B clean verify` and `mvn -B org.pitest:pitest-maven:1.19.4:mutationCoverage` inside its `exp3` directory; actual exits and JUnit, JaCoCo, and PIT results; comparison with committed final XML; a concise verification transcript in the main branch's existing evidence directory; and removal of only that temporary worktree. The request excluded the two pre-existing untracked files and prohibited source/test/report changes, commits, pushes, and PRs.
+
+**Assistant response summary, recorded during this turn rather than represented as a verbatim final response:** Confirmed branch `exp3-final-verification`, HEAD `3d7f3bf9d6fccb937e77cb7b2a95a6862080fd3f`, and clean tracked status. Created a detached worktree under the system TEMP directory from that HEAD, without copying working-directory files. It contained all 63 tracked `exp3` files and had no missing tracked files. Java was Temurin 25.0.4.1+1; Maven was 3.9.16. Both requested Maven commands exited 0: 43 tests passed with no failures/errors/skips; ShoppingCart JaCoCo was 38/38 lines, 30/30 branches, and 8/8 methods; PIT killed 28/28 mutations. Generated JaCoCo XML differed from committed XML only in session metadata; PIT XML differed only in line endings. Saved `evidence/final-verification/clean-checkout-cx08.txt`, then removed the verified temporary worktree. Updated current verification references in README, TDD log, coverage report, and evidence index. The final changed-file list and diff check are reported in this turn's final response.
+
+**Assistant self-check / critique:** The XML files are not byte-identical, so the result is a semantic match, not a byte-for-byte reproduction. The concise transcript includes commands and exit codes, not full Maven console output; a cold offline build was not tested. Initial sandboxed worktree creation was denied because Git metadata was outside the writable area, then succeeded with the required filesystem access. No production code or tests were changed.
+
+**Owner evaluation and adoption decision:** Pending. No owner evaluation of the CX-08 response has been supplied.
+
 ## Remaining interaction requirement
 
-Seven real requests are recorded, but CX-02, CX-04, CX-05, CX-06, and CX-07 lack explicit owner evaluations. At least five further genuine exchanges are needed to reach 12, and pending evaluations must be completed from actual owner feedback. Do not invent exchanges or decisions.
+Eight real requests are recorded, but CX-02 and CX-04 through CX-08 lack explicit owner evaluations. At least four further genuine exchanges are needed to reach 12, and pending evaluations must be completed from actual owner feedback. Do not invent exchanges or decisions.

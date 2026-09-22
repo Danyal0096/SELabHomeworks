@@ -1,6 +1,6 @@
 # Software Engineering Lab — Experiment 3
 
-The cart and tests are under `src/` and `Test/`; `pom.xml` configures both directories. The current implementation includes three owner-approved defect corrections, `updateItemPrice(String,double)`, and a configurable item-capacity limit. The latest local Surefire reports total **43 passing tests**. Retained PIT XML records **28 killed of 28 generated mutations** for `ShoppingCart`. These observations do not replace a retained clean-checkout command transcript.
+The cart and tests are under `src/` and `Test/`; `pom.xml` configures both directories. The current implementation includes three owner-approved defect corrections, `updateItemPrice(String,double)`, and a configurable item-capacity limit. A detached clean checkout at `3d7f3bf` passed **43 tests** and killed **28 of 28 generated ShoppingCart mutations**. Its concise command and result record is in `evidence/final-verification/clean-checkout-cx08.txt`.
 
 ## Build and evidence
 
@@ -26,4 +26,4 @@ The original experiment handout excludes a subtotal of exactly 100 from the disc
 
 ## Submission status
 
-`docs/report-fa.md` is still an unfinished Persian RTL report; it needs to reflect the actual defect, feature, TDD, coverage, mutation, and reproduction evidence. `docs/codex-interactions.md` records the real exchanges available so far; the handout requires at least 12. Before submission, retain a clean-checkout verification record with the revision, Java/Maven versions, exact commands, exit codes, and test/metric results, plus the actual delivery link. No such final transcript or delivery evidence is retained yet; do not infer it from local generated reports or this README.
+`docs/report-fa.md` is still an unfinished Persian RTL report; it needs to reflect the actual defect, feature, TDD, coverage, mutation, and reproduction evidence. `docs/codex-interactions.md` records the real exchanges available so far; the handout requires at least 12. The CX-08 clean-checkout record includes the revision, Java/Maven versions, commands, exit codes, and test/metric results, but not full console output. No delivery evidence is retained yet.

@@ -10,7 +10,7 @@ The measurements below come from retained XML, scoped to `ShoppingCart`. Baselin
 | PIT killed / generated | 9/11 (81.82%) | 28/28 (100%) |
 | PIT no coverage / survived | 2 / 0 | 0 / 0 |
 
-Sources: `evidence/baseline/jacoco.xml`, `evidence/baseline/mutations.xml`, `evidence/final-verification/jacoco.xml`, and `evidence/final-verification/mutations.xml`. The refreshed final XML files match the local generated `target` copies byte-for-byte. The latest local Surefire XML totals **43 tests, 0 failures, 0 errors, 0 skipped**; a clean-checkout console transcript is not retained.
+Sources: `evidence/baseline/jacoco.xml`, `evidence/baseline/mutations.xml`, `evidence/final-verification/jacoco.xml`, and `evidence/final-verification/mutations.xml`. The refreshed final XML files match the main checkout's generated `target` copies byte-for-byte. The latest local Surefire XML totals **43 tests, 0 failures, 0 errors, 0 skipped**; CX-08 independently reproduced these results in a detached clean checkout.
 
 ## Scope and interpretation
 
@@ -23,4 +23,4 @@ The CX-07 tests directly exercise null, empty, and whitespace-only update names;
 
 ## Reproduction evidence
 
-The baseline retained `mvn -B clean verify` and `mvn -B org.pitest:pitest-maven:1.19.4:mutationCoverage` console logs, both with exit code 0 in `evidence/baseline/exit-codes.txt`. That environment used Java 25.0.4.1 and Maven 3.9.16; `pom.xml` configures JUnit 5.8.1, JaCoCo 0.8.14, and PIT 1.19.4. In CX-07, an initial sandboxed `clean verify` stopped at plugin resolution because network access was denied; its network-enabled rerun and the PIT command both exited 0. These latest console logs are in the interaction, not retained as committed evidence or a clean-checkout record. Retain such a record before making final reproducibility claims.
+The baseline retained `mvn -B clean verify` and `mvn -B org.pitest:pitest-maven:1.19.4:mutationCoverage` console logs, both with exit code 0 in `evidence/baseline/exit-codes.txt`. That environment used Java 25.0.4.1 and Maven 3.9.16; `pom.xml` configures JUnit 5.8.1, JaCoCo 0.8.14, and PIT 1.19.4. In CX-07, an initial sandboxed `clean verify` stopped at plugin resolution because network access was denied; its network-enabled rerun and the PIT command both exited 0. CX-08 independently repeated both commands at committed HEAD `3d7f3bf` in a detached clean checkout using Java 25.0.4.1 and Maven 3.9.16; both exited 0. The concise record is `evidence/final-verification/clean-checkout-cx08.txt`; full console output is not retained. Generated clean-checkout JaCoCo XML differs from committed XML only in session metadata, while PIT XML differs only in line endings. These are byte differences, not metric or mutation-result differences.
