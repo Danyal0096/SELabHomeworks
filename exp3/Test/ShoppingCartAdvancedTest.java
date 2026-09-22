@@ -60,4 +60,26 @@ public class ShoppingCartAdvancedTest {
         assertEquals(110.0, cart.getTotal());
         assertEquals(2, cart.getItemCount());
     }
+
+    @Test
+    void shouldAllowAddingFreeItem() {
+        ShoppingCart cart = new ShoppingCart();
+
+        cart.addItem("FreeSample", 0.0);
+
+        assertEquals(1, cart.getItemCount());
+        assertEquals(0.0, cart.getTotal());
+    }
+
+    @Test
+    void shouldReturnFalseWhenRemovingMissingItem() {
+        ShoppingCart cart = new ShoppingCart();
+
+        cart.addItem("Book", 20.0);
+
+        assertFalse(cart.removeItem("Pen"));
+
+        assertEquals(1, cart.getItemCount());
+        assertEquals(20.0, cart.getTotal());
+    }
 }
