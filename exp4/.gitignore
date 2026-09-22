@@ -1,0 +1,7 @@
+# Keep build artifacts and local IDE configuration out of the shared repository.
+/target/
+/.idea/
+*.iml
+.classpath
+.project
+.settings/
