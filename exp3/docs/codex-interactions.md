@@ -1,13 +1,14 @@
 # Codex interaction register — actual exchanges only
 
-**4 real requests recorded toward the required 12; CX-02 and CX-04 still lack owner evaluation.** The quoted passages below are verbatim excerpts from this conversation, not complete transcripts. Summaries are labeled as summaries. A pending evaluation is not an adopted decision.
+**5 real requests recorded toward the required 12; CX-02, CX-04, and CX-05 still lack owner evaluation.** The quoted passages below are verbatim excerpts from this conversation, not complete transcripts. Summaries are labeled as summaries. A pending evaluation is not an adopted decision.
 
 | ID | Actual topic | Prompt and response | Evaluation and decision | Related evidence |
 | --- | --- | --- | --- | --- |
 | CX-01 | Read-only original-source defect analysis | Verbatim excerpts and faithful summary below | Candidate contracts accepted only after project-owner approval and RED tests | `Test/ShoppingCartPrecisionTest.java`, `Test/ShoppingCartPriceValidationTest.java`, `Test/ShoppingCartNameValidationTest.java`; `evidence/bugs/` |
 | CX-02 | Finalize bug-discovery documentation | Current request and this turn's response summary below | User evaluation pending | These documentation edits; `git diff --check` result to be reported in the final response |
 | CX-03 | Read-only pre-submission audit | Actual excerpts and response summary below | Assistant review and independent handout verification; earlier owner decisions recorded separately | Audit response in this conversation; retained XML and Git history |
-| CX-04 | First documentation cleanup stage | Current request and work summary below | Owner evaluation pending; no outcome claimed | The documentation diff from this turn |
+| CX-04 | First documentation cleanup stage | Request excerpts and work summary below | Owner evaluation pending; cleanup committed as `b3c0217` | `b3c0217` |
+| CX-05 | Second documentation cleanup stage | Current request and work summary below | Owner evaluation pending; no outcome claimed | README submission status and removal of four obsolete planning files |
 
 ## CX-01 — Original-source defect analysis
 
@@ -111,12 +112,34 @@ The complete request also asked for a TDD chronology, baseline/final JaCoCo and 
 
 The complete request also identified baseline, feature-contract, TDD, evidence-index, and interaction-register updates; it prohibited historical-evidence and Persian-report changes, commits, pushes, PRs, and new documentation files. These are excerpts, not a complete transcript.
 
-**Assistant response summary recorded during this turn, not a verbatim final answer:** The assistant updated the requested current-state documentation, reconciled metrics with retained XML and commit order, removed stale links, and identified obsolete documents for review without deleting them. The final changed-file list and `git diff --check` result belong to this turn's final response. This summary records work actually performed; it does not claim an owner-approved outcome.
+**Assistant response summary, not a verbatim final answer:** The assistant updated the requested current-state documentation, reconciled metrics with retained XML and commit order, removed stale links, and identified obsolete documents for review without deleting them. That cleanup was subsequently committed as `b3c0217`; the commit does not establish an owner evaluation of the response.
 
 **Assistant self-check / critique:** The original handout is still absent locally, so the handout facts come from the owner's independently verified correction. Saved class reports, local generated Surefire XML, and committed final metric XML have different evidentiary scope. Existing untracked files were left untouched. Any later owner critique of this cleanup must be added from the actual reply.
 
 **Owner evaluation and adoption decision:** Pending. No approval, rejection, or final submission result is claimed.
 
+## CX-05 — Second documentation cleanup stage
+
+**Actual user request, verbatim excerpts:**
+
+> “Documentation cleanup stage 1 has been committed as `b3c0217`. This is CX-05, a genuine Codex interaction.”
+>
+> “Remove obsolete planning instructions, hypothetical commit sequences, stale checkboxes, and statements that completed work is still pending.”
+>
+> “Preserve genuinely unique historical evidence or essential outstanding submission information in an appropriate EXISTING document before deleting its former source.”
+>
+> “Do not turn proposed tests into claims that tests were executed.”
+>
+> “Do not commit, push, or create a PR.”
+
+The full request named `roadmap.md`, `commit-plan.md`, `test-plan.md`, and `submission-checklist.md`, required reference repair and a `git diff --check` report, and prohibited changes to Java, tests, Maven configuration, historical evidence, and the Persian report. These are excerpts, not a complete prompt transcript.
+
+**Assistant response summary, recorded during this turn rather than represented as a verbatim final response:** Compared the four planning files with the current README, TDD log, feature contracts, evidence index, coverage report, and Git history. Preserved the outstanding clean-checkout record and report contents in `README.md`, then removed the four obsolete planning files. Checked remaining references and left source, tests, Maven configuration, historical evidence, and the Persian report untouched. The final changed-file list and `git diff --check` result belong to this turn's final response.
+
+**Assistant self-check / critique:** The deleted test plan listed proposed cases and stale “Not run”/“TODO” fields; none was promoted into a claim of execution. Actual test chronology remains in `tdd-log.md`, and the uncovered update-validation paths remain identified in `coverage-mutation.md`. The deleted checklist's Hamgit item cannot be marked complete under the owner's GitHub decision; the deviation remains explicit in `README.md`. Existing untracked files were left untouched.
+
+**Owner evaluation and adoption decision:** Pending. The user has not yet evaluated this cleanup response.
+
 ## Remaining interaction requirement
 
-Four real requests are recorded, but CX-02 and CX-04 still have pending evaluations. At least eight further genuine exchanges are needed to reach 12, and pending evaluations must be completed from actual owner feedback. Do not invent exchanges or decisions.
+Five real requests are recorded, but CX-02, CX-04, and CX-05 still have pending evaluations. At least seven further genuine exchanges are needed to reach 12, and pending evaluations must be completed from actual owner feedback. Do not invent exchanges or decisions.

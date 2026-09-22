@@ -26,4 +26,4 @@ The original experiment handout excludes a subtotal of exactly 100 from the disc
 
 ## Submission status
 
-`docs/report-fa.md` is still an unfinished Persian RTL report. `docs/codex-interactions.md` records the real exchanges available so far; the handout requires at least 12. A final clean-checkout verification transcript and delivery evidence are not retained. Do not infer them from the local generated reports or from this README.
+`docs/report-fa.md` is still an unfinished Persian RTL report; it needs to reflect the actual defect, feature, TDD, coverage, mutation, and reproduction evidence. `docs/codex-interactions.md` records the real exchanges available so far; the handout requires at least 12. Before submission, retain a clean-checkout verification record with the revision, Java/Maven versions, exact commands, exit codes, and test/metric results, plus the actual delivery link. No such final transcript or delivery evidence is retained yet; do not infer it from local generated reports or this README.
