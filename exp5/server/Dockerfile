@@ -1,0 +1,7 @@
+FROM python:3.10-alpine
+
+WORKDIR /app
+COPY server.py .
+
+EXPOSE 80
+CMD ["python", "-u", "server.py"]
